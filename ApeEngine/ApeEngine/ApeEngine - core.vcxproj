@@ -129,23 +129,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="render2d\Bitmap.cpp" />
     <ClCompile Include="utilitiesfrw\Materials.cpp" />
     <ClCompile Include="WIP\ApeTexture.cpp" />
     <ClCompile Include="framework\ApePCH.cpp" />
     <ClCompile Include="framework\Application.cpp" />
-    <ClCompile Include="render2d\Bitmap.cpp" />
     <ClCompile Include="shader\DeferredShader.cpp" />
     <ClCompile Include="utilities\GlobalStructs.cpp" />
     <ClCompile Include="utilitiesfrw\DeferredBuffers.cpp" />
     <ClCompile Include="utilitiesfrw\OrthoWindow.cpp" />
     <ClCompile Include="utilitiesfrw\RenderTexture.cpp" />
     <ClCompile Include="utilities\FramesPerSec.cpp" />
-    <ClCompile Include="interface\MiniMap.cpp" />
-    <ClCompile Include="interface\MouseCursor.cpp" />
     <ClCompile Include="render3d\Skydome.cpp" />
     <ClCompile Include="shader\SkydomeShader.cpp" />
     <ClCompile Include="shader\TerrainShader.cpp" />
-    <ClCompile Include="framework\TextureManager.cpp" />
     <ClCompile Include="utilities\Timer.cpp" />
     <ClCompile Include="framework\Camera.cpp" />
     <ClCompile Include="shader\ColorShader.cpp" />
@@ -155,7 +152,6 @@
     <ClCompile Include="framework\ShaderManager.cpp" />
     <ClCompile Include="terrain\Terrain.cpp" />
     <ClCompile Include="terrain\TerrainCells.cpp" />
-    <ClCompile Include="interface\apeFont.cpp" />
     <ClCompile Include="shader\FontShader.cpp" />
     <ClCompile Include="zdeprecated\Graphics.cpp" />
     <ClCompile Include="framework\Input.cpp" />
@@ -164,18 +160,16 @@
     <ClCompile Include="framework\main.cpp" />
     <ClCompile Include="render3d\Model.cpp" />
     <ClCompile Include="framework\System.cpp" />
-    <ClCompile Include="interface\Text.cpp" />
     <ClCompile Include="utilitiesfrw\Texture.cpp" />
     <ClCompile Include="shader\TextureShader.cpp" />
-    <ClCompile Include="framework\UserInterface.cpp" />
     <ClCompile Include="framework\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="render2d\Bitmap.h" />
     <ClInclude Include="utilitiesfrw\Materials.h" />
     <ClInclude Include="WIP\ApeTexture.h" />
     <ClInclude Include="framework\ApePCH.h" />
     <ClInclude Include="framework\Application.h" />
-    <ClInclude Include="render2d\Bitmap.h" />
     <ClInclude Include="shader\DeferredShader.h" />
     <ClInclude Include="utilities\GlobalStructs.h" />
     <ClInclude Include="utilitiesfrw\CPUAccess.h" />
@@ -183,12 +177,9 @@
     <ClInclude Include="utilitiesfrw\OrthoWindow.h" />
     <ClInclude Include="utilitiesfrw\RenderTexture.h" />
     <ClInclude Include="utilities\FramesPerSec.h" />
-    <ClInclude Include="interface\MiniMap.h" />
-    <ClInclude Include="interface\MouseCursor.h" />
     <ClInclude Include="render3d\Skydome.h" />
     <ClInclude Include="shader\SkydomeShader.h" />
     <ClInclude Include="shader\TerrainShader.h" />
-    <ClInclude Include="framework\TextureManager.h" />
     <ClInclude Include="utilities\Timer.h" />
     <ClInclude Include="framework\Camera.h" />
     <ClInclude Include="shader\ColorShader.h" />
@@ -198,7 +189,6 @@
     <ClInclude Include="framework\ShaderManager.h" />
     <ClInclude Include="terrain\Terrain.h" />
     <ClInclude Include="terrain\TerrainCells.h" />
-    <ClInclude Include="interface\apeFont.h" />
     <ClInclude Include="shader\FontShader.h" />
     <ClInclude Include="WIP\ClearFlags.h" />
     <ClInclude Include="WIP\Texture.h" />
@@ -208,10 +198,8 @@
     <ClInclude Include="shader\LightShader.h" />
     <ClInclude Include="render3d\Model.h" />
     <ClInclude Include="framework\System.h" />
-    <ClInclude Include="interface\Text.h" />
     <ClInclude Include="utilitiesfrw\Texture.h" />
     <ClInclude Include="shader\TextureShader.h" />
-    <ClInclude Include="framework\UserInterface.h" />
     <ClInclude Include="framework\Scene.h" />
   </ItemGroup>
   <ItemGroup>

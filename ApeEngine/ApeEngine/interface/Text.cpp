@@ -289,7 +289,7 @@ void Text::RenderSentence(ID3D11DeviceContext* deviceContext, ShaderManager* sha
 		deviceContext->IASetIndexBuffer(m_indexBuffer2, DXGI_FORMAT_R32_UINT, 0);
 		deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		shaderManager->RenderFontShader(deviceContext, m_indexCount, worldMatrix, viewMatrix, orthoMatrix, fontTexture, shadowColor);
+		shaderManager->RenderFontShader(m_indexCount, worldMatrix, viewMatrix, orthoMatrix, fontTexture, shadowColor);
 	}
 
 	// Render the text buffers.
@@ -297,7 +297,7 @@ void Text::RenderSentence(ID3D11DeviceContext* deviceContext, ShaderManager* sha
 	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	shaderManager->RenderFontShader(deviceContext, m_indexCount, worldMatrix, viewMatrix, orthoMatrix, fontTexture, m_pixelColor);
+	shaderManager->RenderFontShader(m_indexCount, worldMatrix, viewMatrix, orthoMatrix, fontTexture, m_pixelColor);
 
 	return;
 }

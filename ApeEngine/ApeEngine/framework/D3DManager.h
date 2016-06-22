@@ -15,12 +15,11 @@ using namespace DirectX;
 class D3DManager
 {
 public:
-	D3DManager();
-	D3DManager(const D3DManager&);
+	D3DManager(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
+			   float screenDepth, float screenNear);
 	~D3DManager();
 
 	bool Initialize(int, int, bool, HWND, bool, float, float);
-	void Shutdown();
 
 	void BeginScene(float, float, float, float);
 	void EndScene();

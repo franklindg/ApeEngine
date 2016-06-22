@@ -9,11 +9,6 @@ RenderTexture::RenderTexture()
 	, m_shaderResourceView(0)
 {}
 
-RenderTexture::RenderTexture(const RenderTexture& other)
-{
-
-}
-
 RenderTexture::~RenderTexture()
 {
 

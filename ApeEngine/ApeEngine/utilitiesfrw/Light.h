@@ -17,7 +17,6 @@ class Light
 {
 public:
 	Light();
-	Light(const Light&);
 	~Light();
 
 	void SetAmbientColor(float, float, float, float);

@@ -17,6 +17,7 @@ using namespace DirectX;
 #include "../render2d/Bitmap.h"
 #include "../framework/ShaderManager.h"
 #include "../framework/Input.h"
+#include "../utilitiesfrw/Texture.h"
 
 ///////////////////
 // Class name: MouseCursor //
@@ -37,7 +38,7 @@ public:
 
 	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, int, int);
 	void Shutdown();
-	bool Render(ID3D11DeviceContext*, ShaderManager*, CXMMATRIX, CXMMATRIX, CXMMATRIX);
+	bool Render(ID3D11DeviceContext* deviceContext, ShaderManager* shaderManager, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projMatrix, ID3D11ShaderResourceView* texture);
 
 	void PositionUpdate(Input*);
 

@@ -14,12 +14,6 @@ OrthoWindow::OrthoWindow(ID3D11Device* device, int windowWidth, int windowHeight
 	}
 }
 
-
-OrthoWindow::OrthoWindow(const OrthoWindow& other)
-{
-}
-
-
 OrthoWindow::~OrthoWindow()
 {
 	ShutdownBuffers();

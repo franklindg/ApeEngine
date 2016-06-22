@@ -18,7 +18,6 @@ class Position
 {
 public:
 	Position();
-	Position(const Position&);
 	~Position();
 
 	void SetPosition(float, float, float);

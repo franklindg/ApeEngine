@@ -18,56 +18,12 @@ DeferredShader::DeferredShader(ID3D11Device* pDevice)
 	, m_pBlob(nullptr)
 {
 	m_pDevice->GetImmediateContext(&m_pDeviceContext);
-}
 
-DeferredShader::DeferredShader(const DeferredShader& other)
-{
-}
-
-
-DeferredShader::~DeferredShader()
-{
-}
-
-bool DeferredShader::Initialize(HWND hwnd)
-{
-	bool result;
-
-	result = InitializeShader(hwnd, L"data/shaders/deferred/deferredrendering.hlsl");
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void DeferredShader::Shutdown()
-{
-	ShutdownShader();
-
-	return;
-}
-
-bool DeferredShader::Render(UINT indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix,
-							ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
-{
-	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap))
-		return false;
-
-	RenderShader(indexCount);
-
-	return true;
-}
-
-bool DeferredShader::InitializeShader(HWND hwnd, WCHAR* shaderFilename)
-{
-	HRESULT hr;
 	D3D11_SAMPLER_DESC samplerDesc;
-	
-	CreateShader(VertexShader, shaderFilename, "VSMain", "vs_5_0");
+
+	CreateShader(VertexShader, L"data/shaders/deferred/deferredrendering.hlsl", "VSMain", "vs_5_0");
 	GetShaderInformation();
-	CreateShader(PixelShader, shaderFilename, "PSMain", "ps_5_0");
+	CreateShader(PixelShader, L"data/shaders/deferred/deferredrendering.hlsl", "PSMain", "ps_5_0");
 
 	m_pBlob.Reset();
 
@@ -75,7 +31,7 @@ bool DeferredShader::InitializeShader(HWND hwnd, WCHAR* shaderFilename)
 	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
 	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP; 
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.MipLODBias = 0.0f;
 	samplerDesc.MaxAnisotropy = 1;
 	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
@@ -87,12 +43,11 @@ bool DeferredShader::InitializeShader(HWND hwnd, WCHAR* shaderFilename)
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 	// Create the texture sampler state.
-	hr = m_pDevice->CreateSamplerState(&samplerDesc, &m_pSamplerState);
-	if (FAILED(hr))
+	if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, &m_pSamplerState)))
 	{
-		return false;
+		ReportError("Failed to create the sampler state.");
 	}
-	
+
 	// Sets the description, then creates the matrix constant buffer.
 	size_t bufferSize = sizeof(MatrixBufferType);
 	D3D11_BUFFER_DESC matrixBuffer;
@@ -107,7 +62,7 @@ bool DeferredShader::InitializeShader(HWND hwnd, WCHAR* shaderFilename)
 
 	if (FAILED(m_pDevice->CreateBuffer(&matrixBuffer, nullptr, &m_pMatrixBuffer)))
 	{
-		return false;
+		ReportError("Failed to create the matrix buffer.");
 	}
 
 	// Sets the description, then creates the material constant buffer.
@@ -122,15 +77,13 @@ bool DeferredShader::InitializeShader(HWND hwnd, WCHAR* shaderFilename)
 	materialBuffer.MiscFlags = 0;
 	materialBuffer.StructureByteStride = 0;
 
-	if(FAILED(m_pDevice->CreateBuffer(&materialBuffer, NULL, &m_pMaterialBuffer)))
+	if (FAILED(m_pDevice->CreateBuffer(&materialBuffer, NULL, &m_pMaterialBuffer)))
 	{
-		return false;
+		ReportError("Failed to create the material buffer.");
 	}
-
-	return true;
 }
 
-void DeferredShader::ShutdownShader()
+DeferredShader::~DeferredShader()
 {
 	m_pDevice.Reset();
 	m_pDeviceContext.Reset();
@@ -144,8 +97,17 @@ void DeferredShader::ShutdownShader()
 	m_pPixelShader.Reset();
 	m_pReflection.Reset();
 	m_pBlob.Reset();
+}
 
-	return;
+bool DeferredShader::Render(UINT indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix,
+							ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
+{
+	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap))
+		return false;
+
+	RenderShader(indexCount);
+
+	return true;
 }
 
 void DeferredShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd, WCHAR* shaderFilename)

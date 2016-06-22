@@ -38,17 +38,12 @@ private:
 
 public:
 	DeferredShader(ID3D11Device* pDevice);
-	DeferredShader(const DeferredShader&);
 	~DeferredShader();
 
-	bool Initialize(HWND);
-	void Shutdown();
 	bool Render(UINT, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix, ID3D11ShaderResourceView*,
 		ID3D11ShaderResourceView*);
 
 private:
-	bool InitializeShader(HWND, WCHAR*);
-	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3DBlob*, HWND, WCHAR*);
 
 	bool CreateShader(DeferredShader::ShaderType shaderType, WCHAR* fileName, char* entryPoint, char* targetFeature);

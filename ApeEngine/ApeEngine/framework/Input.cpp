@@ -57,83 +57,7 @@ Input::Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight)
 	}
 }
 
-Input::Input(const Input& other)
-{
-
-}
-
 Input::~Input()
-{
-
-}
-
-bool Input::Initialize(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)
-{
-	HRESULT result;
-
-	m_iScreenWidth = screenWidth;
-	m_iScreenHeight = screenHeight;
-	m_iMousePosX = 0;
-	m_iMousePosY = 0;
-
-	result = DirectInput8Create(hinstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pDirectInput, NULL);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pDirectInput->CreateDevice(GUID_SysKeyboard, &m_pKeyboardDevice, NULL);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pKeyboardDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pKeyboardDevice->Acquire();
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pDirectInput->CreateDevice(GUID_SysMouse, &m_pMouseDevice, NULL);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pMouseDevice->SetDataFormat(&c_dfDIMouse);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pMouseDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	result = m_pMouseDevice->Acquire();
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void Input::Shutdown()
 {
 	if (m_pMouseDevice)
 	{
@@ -151,8 +75,6 @@ void Input::Shutdown()
 	{
 		m_pDirectInput.Reset();
 	}
-
-	return;
 }
 
 bool Input::Frame()

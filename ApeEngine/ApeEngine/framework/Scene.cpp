@@ -3,9 +3,8 @@
 /////////////////////////////////////////////
 #include "Scene.h"
 
-Scene::Scene()
-	: m_pUserInterface(nullptr)
-	, m_pCamera(nullptr)
+Scene::Scene(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear)
+	: m_pCamera(nullptr)
 	, m_pLight(nullptr)
 	, m_pPosition(nullptr)
 	, m_pModel(nullptr)
@@ -14,184 +13,44 @@ Scene::Scene()
 	, m_pDeferredShader(nullptr)
 	, m_pLightShader(nullptr)
 	, m_fRotation(0.0f)
-{}
-
-Scene::Scene(const Scene& other)
 {
-
-}
-
-Scene::~Scene()
-{
-
-}
-
-bool Scene::Initialize(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear)
-{
-	bool result;
-
-	/****** Initialize User Interface ******/
-	m_pUserInterface = std::make_shared<UserInterface>();
-	if (!m_pUserInterface)
-	{
-		return false;
-	}
-	
-	if (!m_pUserInterface->Initialize(Direct3D, screenHeight, screenWidth))
-	{
-		MessageBox(hwnd, L"Could not initialize the user interface object.", L"Error", MB_OK);
-		return false;
-	}
-
-	/****** Initialize Camera ******/
 	m_pCamera = std::make_shared<Camera>();
-	if (!m_pCamera)
-	{
-		return false;
-	}
+	m_pLight = std::make_shared<Light>();
+	m_pPosition = std::make_shared<Position>();
+	m_pModel = std::make_shared<Model>(Direct3D->GetDevice(), "data/models/sphere.obj");
+	m_pFullScreenWindow = std::make_shared<OrthoWindow>(Direct3D->GetDevice(), screenWidth, screenHeight);
+	m_pDeferredBuffers = std::make_shared<DeferredBuffers>(Direct3D->GetDevice(), screenWidth, screenHeight, screenDepth, screenNear);
+	m_pDeferredShader = std::make_shared<DeferredShader>(Direct3D->GetDevice());
+	m_pLightShader = std::make_shared<LightShader>(Direct3D->GetDevice(), hwnd);
 
 	m_pCamera->SetPosition(0.0f, 0.0f, -1.0f);
 	m_pCamera->RenderBaseViewMatrix();
 
-	/****** Initialize Light ******/
-	m_pLight = std::make_shared<Light>();
-	if (!m_pLight)
-	{
-		return false;
-	}
-
 	m_pLight->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
 	m_pLight->SetDirection(0.0f, 0.0f, 1.0f);
-	
-	/****** Initialize Position ******/
-	m_pPosition = std::make_shared<Position>();
-	if (!m_pPosition)
-	{
-		return false;
-	}
 
 	m_pPosition->SetPosition(0.0f, 0.0f, -10.0f);
 	m_pPosition->SetRotation(0.0f, 0.0f, 0.0f);
-
-	/****** Initialize Model ******/
-	m_pModel = std::make_shared<Model>(Direct3D->GetDevice(), "data/models/sphere.obj");
-	if (!m_pModel)
-	{
-		return false;
-	}
-
-	/****** Initialize OrthoWindow ******/
-	m_pFullScreenWindow = std::make_shared<OrthoWindow>(Direct3D->GetDevice(), screenWidth, screenHeight);
-	if (!m_pFullScreenWindow)
-	{
-		return false;
-	}
-
-	/****** Initialize DeferredBuffers ******/
-	m_pDeferredBuffers = std::make_shared<DeferredBuffers>();
-	if (!m_pDeferredBuffers)
-	{
-		return false;
-	}
-
-	result = m_pDeferredBuffers->Initialize(Direct3D->GetDevice(), screenWidth, screenHeight, screenDepth, screenNear);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the deferred buffer object.", L"Error", MB_OK);
-		return false;
-	}
-
-	/****** Initialize DeferredShader ******/
-	m_pDeferredShader = std::make_shared<DeferredShader>(Direct3D->GetDevice());
-	if (!m_pDeferredShader)
-	{
-		return false;
-	}
-
-	result = m_pDeferredShader->Initialize(hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the deferred shader object.", L"Error", MB_OK);
-		return false;
-	}
-
-	/****** Initialize LightShader ******/
-	m_pLightShader = std::make_shared<LightShader>();
-	if (!m_pLightShader)
-	{
-		return false;
-	}
-
-	result = m_pLightShader->Initialize(Direct3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the light shader object.", L"Error", MB_OK);
-		return false;
-	}
 
 	m_bCellLines = true;
 	m_bDisplayUI = true;
 	m_bWireFrame = true;
 	m_bHeightLocked = true;
-
-	return true;
 }
 
-void Scene::Shutdown()
+Scene::~Scene()
 {
-	if (m_pModel)
-	{
-		m_pModel.reset();
-	}
-
-	if (m_pPosition)
-	{
-		m_pPosition.reset();;
-	}
-
-	if (m_pLight)
-	{
-		m_pLight.reset();
-	}
-
-	if (m_pLightShader)
-	{
-		m_pLightShader->Shutdown();
-		m_pLightShader.reset();
-	}
-
-	if (m_pDeferredShader)
-	{
-		m_pDeferredShader->Shutdown();
-		m_pDeferredShader.reset();
-	}
-
-	if (m_pFullScreenWindow)
-	{
-		m_pFullScreenWindow.reset();
-	}
-
-	if (m_pDeferredBuffers)
-	{
-		m_pDeferredBuffers->Shutdown();
-		m_pDeferredBuffers.reset();
-	}
-
-	if (m_pCamera)
-	{
-		m_pCamera.reset();
-	}
-
-	if (m_pUserInterface)
-	{
-		m_pUserInterface->Shutdown();
-		m_pUserInterface.reset();
-	}
-
-	return;
+	m_pModel.reset();
+	m_pPosition.reset();
+	m_pLight.reset();
+	m_pLightShader.reset();
+	m_pDeferredShader.reset();
+	m_pFullScreenWindow.reset();
+	m_pDeferredBuffers.reset();
+	m_pCamera.reset();
 }
 
-bool Scene::Frame(D3DManager* Direct3D, Input* input, ShaderManager* shaderManager, TextureManager* textureManager, float frameTime, int fps)
+bool Scene::Frame(D3DManager* Direct3D, Input* input, ShaderManager* shaderManager, Texture* texture, float frameTime, int fps)
 {
 	float posX, posY, posZ, rotX, rotY, rotZ;
 
@@ -199,13 +58,9 @@ bool Scene::Frame(D3DManager* Direct3D, Input* input, ShaderManager* shaderManag
 	HandleMovementInput(input, frameTime);
 	m_pPosition->GetPosition(posX, posY, posZ);
 	m_pPosition->GetRotation(rotX, rotY, rotZ);
-
-	// Updates user interface variables.
-	if (!m_pUserInterface->Frame(Direct3D->GetDeviceContext(), input, fps, posX, posY, posZ, rotX, rotY, rotZ))
-		return false;
 	
 	// Updates the scene.
-	if (!Render(Direct3D, shaderManager, textureManager))
+	if (!Render(Direct3D, shaderManager, texture))
 		return false;
 
 	// Updates rotation float.
@@ -286,18 +141,18 @@ void Scene::HandleMovementInput(Input* input, float frameTime)
 	return;
 }
 
-bool Scene::Render(D3DManager* Direct3D, ShaderManager* shaderManager, TextureManager* textureManager)
+bool Scene::Render(D3DManager* Direct3D, ShaderManager* shaderManager, Texture* texture)
 {	
-	if(!RenderDeferred(Direct3D, shaderManager, textureManager))
+	if(!RenderDeferred(Direct3D, shaderManager, texture))
 		return false;
 
-	if(!RenderWindow(Direct3D, shaderManager, textureManager))
+	if(!RenderWindow(Direct3D, shaderManager, texture))
 		return false;
 	
 	return true;
 }
 
-bool Scene::RenderDeferred(D3DManager* Direct3D, ShaderManager* shaderManager, TextureManager* textureManager)
+bool Scene::RenderDeferred(D3DManager* Direct3D, ShaderManager* shaderManager, Texture* texture)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	XMFLOAT3 cameraPosition;
@@ -308,14 +163,10 @@ bool Scene::RenderDeferred(D3DManager* Direct3D, ShaderManager* shaderManager, T
 	Direct3D->GetWorldMatrix(worldMatrix);
 	m_pCamera->GetViewMatrix(viewMatrix);
 	Direct3D->GetProjectionMatrix(projectionMatrix);
-	
-	
-	
-	
 
 	// Sets and clears the buffers to be rendered to.
-	m_pDeferredBuffers->SetRenderTargets(Direct3D->GetDeviceContext());
-	m_pDeferredBuffers->ClearRenderTargets(Direct3D->GetDeviceContext(), 0.0f, 0.0f, 0.0f, 1.0f);
+	m_pDeferredBuffers->SetRenderTargets();
+	m_pDeferredBuffers->ClearRenderTargets(0.0f, 0.0f, 0.0f, 1.0f);
 
 	m_pCamera->Render();
 
@@ -328,7 +179,7 @@ bool Scene::RenderDeferred(D3DManager* Direct3D, ShaderManager* shaderManager, T
 	// Renders the deferred shader.
 	m_pDeferredShader->Render(m_pModel->GetIndexCount(),
 		worldMatrix, viewMatrix, projectionMatrix, 
-		textureManager->GetTexture(2), textureManager->GetTexture(3));
+		texture->GetTexture(0), texture->GetTexture(1));
 
 	// Resets the back buffer and view-port.
 	Direct3D->SetBackBufferRenderTarget();
@@ -337,7 +188,7 @@ bool Scene::RenderDeferred(D3DManager* Direct3D, ShaderManager* shaderManager, T
 	return true;
 }
 
-bool Scene::RenderWindow(D3DManager* Direct3D, ShaderManager* shaderManager, TextureManager* textureManager)
+bool Scene::RenderWindow(D3DManager* Direct3D, ShaderManager* shaderManager, Texture* texture)
 {
 	XMMATRIX WorldMatrix, BaseViewMatrix, OrthoMatrix;
 
@@ -352,23 +203,14 @@ bool Scene::RenderWindow(D3DManager* Direct3D, ShaderManager* shaderManager, Tex
 
 	m_pFullScreenWindow->Render(Direct3D->GetDeviceContext());
 
-	m_pLightShader->Render(Direct3D->GetDeviceContext(),
-		m_pFullScreenWindow->GetIndexCount(),
-		WorldMatrix, BaseViewMatrix, OrthoMatrix,
-		m_pDeferredBuffers->GetShaderResourceView(0),
+	m_pLightShader->Render(m_pFullScreenWindow->GetIndexCount(),
+		WorldMatrix,
+		BaseViewMatrix, OrthoMatrix, m_pDeferredBuffers->GetShaderResourceView(0),
 		m_pDeferredBuffers->GetShaderResourceView(1),
 		m_pDeferredBuffers->GetShaderResourceView(2),
 		m_pDeferredBuffers->GetShaderResourceView(3),
-		m_pCamera->GetPosition(), m_pLight->GetDirection());
-
-	if (m_bDisplayUI)
-	{
-		
-		if (!m_pUserInterface->Render(Direct3D, shaderManager, WorldMatrix, BaseViewMatrix, OrthoMatrix))
-		{
-			return false;
-		}
-	}
+		m_pCamera->GetPosition(),
+		m_pLight->GetDirection());
 
 	Direct3D->TurnZBufferOn();
 	Direct3D->EndScene();

@@ -18,23 +18,27 @@
 class ShaderManager
 {
 public:
-	ShaderManager();
-	ShaderManager(const ShaderManager&);
+	ShaderManager(ID3D11Device* device, HWND hwnd);
 	~ShaderManager();
 
 	bool Initialize(ID3D11Device*, HWND);
-	void Shutdown();
 	
-	bool RenderColorShader(ID3D11DeviceContext*, int, XMFLOAT4X4, XMFLOAT4X4, XMFLOAT4X4);
+	bool RenderColorShader(int indexCount, XMFLOAT4X4 worldMatrix, XMFLOAT4X4 viewMatrix,
+						   XMFLOAT4X4 projectionMatrix);
 
-	bool RenderTextureShader(ID3D11DeviceContext*, int, CXMMATRIX, CXMMATRIX, CXMMATRIX, ID3D11ShaderResourceView*);
+	bool RenderTextureShader(int indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
+							 CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture);
 
-	bool RenderTerrainShader(ID3D11DeviceContext*, int, XMFLOAT4X4, XMFLOAT4X4, XMFLOAT4X4, ID3D11ShaderResourceView*,
-							 ID3D11ShaderResourceView*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView*, XMFLOAT3, XMFLOAT4);
+	bool RenderTerrainShader(int indexCount, XMFLOAT4X4 worldMatrix, XMFLOAT4X4 viewMatrix,
+							 XMFLOAT4X4 projectionMatrix, ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* normalMap,
+							 ID3D11ShaderResourceView* normalMap2, ID3D11ShaderResourceView* normalMap3, XMFLOAT3 lightDirection,
+							 XMFLOAT4 diffuseColor);
 
-	bool RenderSkyDomeShader(ID3D11DeviceContext*, int, XMFLOAT4X4, XMFLOAT4X4, XMFLOAT4X4, XMFLOAT4, XMFLOAT4);
+	bool RenderSkyDomeShader(int indexCount, XMFLOAT4X4 worldMatrix, XMFLOAT4X4 viewMatrix,
+							 XMFLOAT4X4 projectionMatrix, XMFLOAT4 apexColor, XMFLOAT4 centerColor);
 
-	bool RenderFontShader(ID3D11DeviceContext*, int, CXMMATRIX, CXMMATRIX, CXMMATRIX, ID3D11ShaderResourceView*, XMFLOAT4);
+	bool RenderFontShader(int indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
+						  CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, XMFLOAT4 color);
 
 private:
 	std::shared_ptr<ColorShader>	m_pColorShader;
@@ -42,6 +46,9 @@ private:
 	std::shared_ptr<TerrainShader>	m_pTerrainShader;
 	std::shared_ptr<SkydomeShader>	m_pSkydomeShader;
 	std::shared_ptr<FontShader>		m_pFontShader;
+
+	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext;
 };
 
 #endif

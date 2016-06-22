@@ -41,8 +41,7 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 	}
 
 	// Initialize the first font object.
-	result = m_pFont->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), "data/userinterface/font/font01.txt",
-		"font01.tga", 32.0f, 3);
+	result = m_pFont->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), "data/userinterface/font/font01.txt", 32.0f, 3);
 	if (!result)
 	{
 		return false;
@@ -285,44 +284,44 @@ bool UserInterface::Frame(ID3D11DeviceContext* deviceContext, Input* input, int 
 }
 
 
-bool UserInterface::Render(D3DManager* Direct3D, ShaderManager* ShaderManager, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
-	CXMMATRIX orthoMatrix)
+bool UserInterface::Render(D3DManager* direct3D, ShaderManager* shaderManager, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
+	CXMMATRIX projMatrix, ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* texture2)
 {
 	int i;
 	bool result;
 
 
-	Direct3D->TurnZBufferOff();
-	Direct3D->TurnAlphaBlendingOn();
+	direct3D->TurnZBufferOff();
+	direct3D->TurnAlphaBlendingOn();
 
 
-	m_pFpsString->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
+	m_pFpsString->Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture);
 
-	m_pVideoStrings[0].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
-	m_pVideoStrings[1].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
+	m_pVideoStrings[0].Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture);
+	m_pVideoStrings[1].Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture);
 
 	for (i = 0; i<6; i++)
 	{
-		m_pPositionStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
+		m_pPositionStrings[i].Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture);
 	}
 
 	for (i = 0; i < 3; i++)
 	{
-		m_pRenderCountStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
+		m_pRenderCountStrings[i].Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture);
 	}
 
 
-	result = m_pMouseCursor->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix);
+	result = m_pMouseCursor->Render(direct3D->GetDeviceContext(), shaderManager, worldMatrix, viewMatrix, projMatrix, texture2);
 	if (!result)
 	{
 		return false;
 	}
 
 
-	Direct3D->TurnAlphaBlendingOff();
+	direct3D->TurnAlphaBlendingOff();
 
 	// Turn the Z buffer back on now that the 2D rendering has completed.
-	Direct3D->TurnZBufferOn();
+	direct3D->TurnZBufferOn();
 
 	return true;
 }

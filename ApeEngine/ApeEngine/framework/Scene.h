@@ -10,8 +10,6 @@
 #include "D3DManager.h"
 #include "Input.h"
 #include "ShaderManager.h"
-#include "TextureManager.h"
-#include "UserInterface.h"
 #include "Camera.h"
 #include "../render3d/Model.h"
 #include "../utilities/Timer.h"
@@ -28,19 +26,16 @@
 class Scene
 {
 public:
-	Scene();
-	Scene(const Scene&);
+	Scene(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear);
 	~Scene();
 
-	bool Initialize(D3DManager*, HWND, int, int, float, float);
-	void Shutdown();
-	bool Frame(D3DManager*, Input*, ShaderManager*, TextureManager*, float, int);
+	bool Frame(D3DManager*, Input*, ShaderManager*, Texture* texture, float, int);
 
 private:
 	void HandleMovementInput(Input*, float);
-	bool Render(D3DManager*, ShaderManager*, TextureManager*);
-	bool RenderDeferred(D3DManager*, ShaderManager*, TextureManager*);
-	bool RenderWindow(D3DManager*, ShaderManager*, TextureManager*);
+	bool Render(D3DManager*, ShaderManager*, Texture* texture);
+	bool RenderDeferred(D3DManager*, ShaderManager*, Texture* texture);
+	bool RenderWindow(D3DManager*, ShaderManager*, Texture* texture);
 	void TestIntersection(D3DManager*, Camera*, int, int);
 	bool RaySphereIntersect(XMFLOAT3, XMFLOAT3, float);
 
@@ -53,7 +48,6 @@ private:
 	std::shared_ptr<OrthoWindow>	 m_pFullScreenWindow;
 	std::shared_ptr<LightShader>	 m_pLightShader;
 	std::shared_ptr<Position>		 m_pPosition;
-	std::shared_ptr<UserInterface>	 m_pUserInterface;
 	std::shared_ptr<Light>		     m_pLight;
 
 	XMFLOAT3 m_CameraPos;

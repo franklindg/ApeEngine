@@ -9,6 +9,7 @@
 // CLASS INCLUDES //
 //////////
 #include "Input.h"
+#include "../utilitiesfrw/Texture.h"
 #include "../interface/Text.h"
 #include "../interface/MiniMap.h"
 #include "../interface/MouseCursor.h"
@@ -27,7 +28,8 @@ public:
 	void Shutdown();
 
 	bool Frame(ID3D11DeviceContext*, Input*, int, float, float, float, float, float, float);
-	bool Render(D3DManager*, ShaderManager*, CXMMATRIX, CXMMATRIX, CXMMATRIX);
+	bool Render(D3DManager* direct3D, ShaderManager* shaderManager, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projMatrix, 
+				ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* texture2);
 
 	bool UpdateRenderCounts(ID3D11DeviceContext*, int, int, int);
 

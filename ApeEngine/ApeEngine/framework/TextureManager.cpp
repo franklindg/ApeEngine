@@ -3,11 +3,18 @@
 /////////////////////////////////////////////
 #include "TextureManager.h"
 
-TextureManager::TextureManager(ID3D11Device* pDevice)
+TextureManager::TextureManager(ID3D11Device* pDevice, int count)
 	: m_TextureArray(0)
 	, m_pDevice(pDevice)
 {
 	m_pDevice->GetImmediateContext(&m_pDeviceContext);
+	m_textureCount = count;
+
+	m_TextureArray[] = new Texture(m_pDevice.Get())[count];
+	if (!m_TextureArray)
+	{
+		ReportError("Failed to initialize texture array.");
+	}
 }
 
 TextureManager::TextureManager(const TextureManager& other)
@@ -17,43 +24,21 @@ TextureManager::TextureManager(const TextureManager& other)
 
 TextureManager::~TextureManager()
 {
-
-}
-
-bool TextureManager::Initialize(int count)
-{
-	m_textureCount = count;
-
-	m_TextureArray = new Texture[m_textureCount];
-	if (!m_TextureArray)
-	{
-		ReportError("Failed to initialize texture array.");
-	}
-
-	return true;
-}
-
-void TextureManager::Shutdown()
-{
-	int i;
-
 	if (m_TextureArray)
 	{
-		for (i = 0; i < m_textureCount; i++)
+		for (int i = 0; i < m_textureCount; i++)
 		{
-			m_TextureArray[i].Shutdown();
+			m_TextureArray[i].~Texture();
 		}
 		delete[] m_TextureArray;
 		m_TextureArray = 0;
 	}
-
-	return;
 }
 
 bool TextureManager::LoadTexture(const char* fileName, int location)
 {
 	
-	if (!m_TextureArray[location].Initialize(m_pDevice.Get(), m_pDeviceContext.Get(), fileName))
+	if (!m_TextureArray[location].Initialize(fileName))
 	{
 		ReportError("Failed to load texture.");
 	}

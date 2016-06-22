@@ -1,41 +1,24 @@
 #include "System.h"
 
 System::System()
-	: m_pApplication(0)
-{}
-
-System::System(const System& other)
+	: m_pApplication(nullptr)
 {
+	int screenWidth(0), screenHeight(0);
 
+	InitializeWindows(screenWidth, screenHeight);
+	m_pApplication = std::make_shared<Application>(m_hinstance, m_hwnd, screenWidth, screenHeight);
 }
 
 System::~System()
 {
-
-}
-
-bool System::Initialize()
-{
-	int screenWidth(0), screenHeight(0);
-
-	// Initialize Windows API
-	InitializeWindows(screenWidth, screenHeight);
-
-	m_pApplication = std::make_shared<Application>();
-
-	if (!m_pApplication->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight))
-	{
-		return false;
-	}
-
-	return true;
+	m_pApplication.reset();
+	ShutdownWindows();
 }
 
 void System::Run()
 {
 	MSG msg;
-	bool done, result;
-
+	bool done;
 
 	// Initialize the message structure.
 	ZeroMemory(&msg, sizeof(MSG));
@@ -59,40 +42,20 @@ void System::Run()
 		else
 		{
 			// Processes the Frame interface.
-			result = Frame();
-			if (!result)
+			if (!Frame())
 			{
 				done = true;
 			}
 		}
-
 	}
-
-	return;
-}
-
-void System::Shutdown()
-{
-	if (m_pApplication)
-	{
-		m_pApplication->Shutdown();
-		m_pApplication.reset();
-	}
-
-	ShutdownWindows();
 
 	return;
 }
 
 bool System::Frame()
 {
-	bool result;
-	
-	result = m_pApplication->Frame();
-	if (!result)
-	{
+	if (!m_pApplication->Frame())
 		return false;
-	}
 
 	return true;
 }
@@ -212,21 +175,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	switch (umessage)
 	{
-		// Check if the window is being destroyed.
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
 			return 0;
 		}
-
-		// Check if the window is being closed.
 		case WM_CLOSE:
 		{
 			PostQuitMessage(0);
 			return 0;
 		}
-
-		// All other messages pass to the message handler in the system class.
 		default:
 		{
 			return ApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);

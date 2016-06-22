@@ -24,11 +24,8 @@ class Input
 {
 public:
 	Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight);
-	Input(const Input&);
 	~Input();
 
-	bool Initialize(HINSTANCE, HWND, int, int);
-	void Shutdown();
 	bool Frame();
 
 	bool IsEscapePressed();
