@@ -53,19 +53,16 @@ private:
 	};
 
 public:
-	Model();
+	Model(ID3D11Device* device, const char* filename);
 	Model(const Model&);
 	~Model();
 
-	bool Initialize(ID3D11Device*, char*);
-	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
 	UINT GetIndexCount();
 
 private:
-	bool InitializeBuffers(ID3D11Device*, char*);
-	void ShutdownBuffers();
+	bool InitializeBuffers(ID3D11Device*, const char*);
 	void RenderBuffers(ID3D11DeviceContext*);
 	void ImportMaterials(const aiMaterial& material);
 

@@ -27,7 +27,6 @@ public:
 	FramesPerSec(const FramesPerSec&);
 	~FramesPerSec();
 
-	void Initialize();
 	void Frame();
 	int GetFps();
 

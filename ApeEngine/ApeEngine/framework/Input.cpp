@@ -4,12 +4,11 @@ Input::Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight)
 	: m_pDirectInput(nullptr)
 	, m_pKeyboardDevice(nullptr)
 	, m_pMouseDevice(nullptr)
+	, m_iScreenWidth(screenWidth)
+	, m_iScreenHeight(screenHeight)
+	, m_iMousePosX(0)
+	, m_iMousePosY(0)
 {
-	m_iScreenWidth = screenWidth;
-	m_iScreenHeight = screenHeight;
-	m_iMousePosX = 0;
-	m_iMousePosY = 0;
-
 	if (FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pDirectInput, NULL)))
 	{
 		ReportError("Failed to create input instance.");
@@ -140,20 +139,17 @@ void Input::Shutdown()
 	{
 		m_pMouseDevice->Unacquire();
 		m_pMouseDevice.Reset();
-		m_pMouseDevice = nullptr;
 	}
 
 	if (m_pKeyboardDevice)
 	{
 		m_pKeyboardDevice->Unacquire();
 		m_pKeyboardDevice.Reset();
-		m_pKeyboardDevice = nullptr;
 	}
 
 	if (m_pDirectInput)
 	{
 		m_pDirectInput.Reset();
-		m_pDirectInput = nullptr;
 	}
 
 	return;
@@ -441,5 +437,6 @@ void Input::GetMouseLocation(int& mouseX, int& mouseY)
 {
 	mouseX = m_iMousePosX;
 	mouseY = m_iMousePosY;
+
 	return;
 }

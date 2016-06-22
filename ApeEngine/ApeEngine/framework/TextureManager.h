@@ -33,7 +33,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext;
 	Texture* m_TextureArray;
-	//std::vector<Texture*> m_pTextures;
+	
 	int m_textureCount;
 };
 

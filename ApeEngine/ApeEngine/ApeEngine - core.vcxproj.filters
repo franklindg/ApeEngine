@@ -57,9 +57,6 @@
     <ClCompile Include="render3d\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render3d\ModelList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="render3d\Skydome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,12 +126,6 @@
     <ClCompile Include="interface\apeFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ApeMath\ApeMatrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ApeMath\ApeFloat4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utilities\GlobalStructs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -183,9 +174,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="interface\Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="render3d\ModelList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="render3d\Model.h">
@@ -264,12 +252,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="interface\apeFont.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ApeMath\ApeMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ApeMath\ApeFloat4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utilities\GlobalStructs.h">

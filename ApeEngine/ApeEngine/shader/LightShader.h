@@ -7,11 +7,9 @@
 //////////
 // INCLUDES //
 //////////
-#include <d3d11_2.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
+#include "../framework/ApePCH.h"
 #include <fstream>
-#include <effects.h>
+
 using namespace DirectX;
 using namespace std;
 
@@ -66,12 +64,12 @@ private:
 	void RenderShader(ID3D11DeviceContext*, int);
 
 private:
-	ID3D11VertexShader* m_vertexShader;
-	ID3D11PixelShader* m_pixelShader;
-	ID3D11InputLayout* m_layout;
-	ID3D11SamplerState* m_sampleState;
-	ID3D11Buffer* m_matrixBuffer;
-	ID3D11Buffer* m_cameraBuffer;
-	ID3D11Buffer* m_lightBuffer;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_layout;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sampleState;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_matrixBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_cameraBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_lightBuffer;
 };
 #endif

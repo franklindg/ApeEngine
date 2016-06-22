@@ -4,37 +4,21 @@
 #include "Model.h"
 
 
-Model::Model()
+Model::Model(ID3D11Device* device, const char* filename)
 {
+	if (!InitializeBuffers(device, filename))
+	{
+		ReportError("Failed to initialize the model buffers.");
+	}
 }
 
 Model::Model(const Model& other)
 {}
 
 Model::~Model()
-{}
-
-bool Model::Initialize(ID3D11Device* device, char* filename)
 {
-	bool result;
-
-	//LoadModelA(modelFilename);
-
-	result = InitializeBuffers(device, filename);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void Model::Shutdown()
-{
-	ShutdownBuffers();
-	//ReleaseModel();
-
-	return;
+	mModel.VertexBuffer->Release();
+	mModel.IndexBuffer->Release();
 }
 
 void Model::Render(ID3D11DeviceContext* deviceContext)
@@ -49,7 +33,7 @@ UINT Model::GetIndexCount()
 	return mModel.NumFaces * 3;
 }
 
-bool Model::InitializeBuffers(ID3D11Device* device, char* filename)
+bool Model::InitializeBuffers(ID3D11Device* device, const char* filename)
 {
 	Assimp::Importer imp;
 	const aiScene* pScene = imp.ReadFile(filename,
@@ -57,7 +41,6 @@ bool Model::InitializeBuffers(ID3D11Device* device, char* filename)
 		aiProcess_Triangulate			|
 		aiProcess_GenSmoothNormals		|
 		aiProcess_SplitLargeMeshes		|
-		//aiProcess_GenUVCoords			|
 		aiProcess_ConvertToLeftHanded	|
 		aiProcess_SortByPType			|
 		aiProcess_PreTransformVertices);
@@ -141,14 +124,6 @@ bool Model::InitializeBuffers(ID3D11Device* device, char* filename)
 	indices.clear();
 
 	return true;
-}
-
-void Model::ShutdownBuffers()
-{
-	mModel.VertexBuffer->Release();
-	mModel.IndexBuffer->Release();
-
-	return;
 }
 
 void Model::RenderBuffers(ID3D11DeviceContext* deviceContext)

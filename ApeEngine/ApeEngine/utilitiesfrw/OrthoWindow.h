@@ -1,15 +1,9 @@
-///////////////////////////////////////
-// Filename: OrthoWindow.h
-///////////////////////////////////////
 #ifndef _ORTHO_WINDOW_H_
 #define _ORTHO_WINDOW_H_
 
+// INCLUDES 
+#include "../framework/ApePCH.h"
 
-//////////////
-// INCLUDES //
-//////////////
-#include <d3d11_2.h>
-#include <DirectXMath.h>
 using namespace DirectX;
 
 
@@ -26,12 +20,10 @@ private:
 	};
 
 public:
-	OrthoWindow();
+	OrthoWindow(ID3D11Device* device, int windowWidth, int windowHeight);
 	OrthoWindow(const OrthoWindow&);
 	~OrthoWindow();
 
-	bool Initialize(ID3D11Device*, int, int);
-	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
 	int GetIndexCount();
@@ -42,8 +34,10 @@ private:
 	void RenderBuffers(ID3D11DeviceContext*);
 
 private:
-	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	int m_vertexCount, m_indexCount;
+	ID3D11Buffer* m_pVertexBuffer;
+	ID3D11Buffer* m_pIndexBuffer;
+
+	int m_iVertexCount, m_iIndexCount;
 };
 
 #endif

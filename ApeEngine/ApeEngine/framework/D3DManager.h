@@ -4,19 +4,9 @@
 #ifndef _D3D_MANAGER_H
 #define _D3D_MANAGER_H
 
-//////////
-// LINKER //
-//////////
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
+// PCH
+#include "ApePCH.h"
 
-//////////
-// INCLUDES //
-//////////
-#include <d3d11_2.h>
-#include <DirectXMath.h>
-#include <wrl.h>
 using namespace DirectX;
 
 ///////////////////

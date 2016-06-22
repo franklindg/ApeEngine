@@ -4,11 +4,10 @@
 #include "Bitmap.h"
 
 Bitmap::Bitmap()
-{
-	m_vertexBuffer = 0;
-	m_indexBuffer = 0;
-	m_Texture = 0;
-}
+	: m_vertexBuffer(nullptr)
+	, m_indexBuffer(nullptr)
+	, m_Texture(nullptr)
+{}
 
 Bitmap::Bitmap(const Bitmap& other)
 {

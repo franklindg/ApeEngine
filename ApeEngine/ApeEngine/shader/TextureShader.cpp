@@ -5,13 +5,12 @@
 
 
 TextureShader::TextureShader()
-{
-	m_vertexShader = 0;
-	m_pixelShader = 0;
-	m_layout = 0;
-	m_matrixBuffer = 0;
-	m_sampleState = 0;
-}
+	: m_vertexShader(0)
+	, m_pixelShader(0)
+	, m_layout(0)
+	, m_matrixBuffer(0)
+	, m_sampleState(0)
+{}
 
 TextureShader::TextureShader(const TextureShader& other)
 {
@@ -211,35 +210,30 @@ bool TextureShader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsF
 
 void TextureShader::ShutdownShader()
 {
-	// Release the sampler state.
 	if (m_sampleState)
 	{
 		m_sampleState->Release();
 		m_sampleState = 0;
 	}
 
-	// Release the matrix constant buffer.
 	if (m_matrixBuffer)
 	{
 		m_matrixBuffer->Release();
 		m_matrixBuffer = 0;
 	}
 
-	// Release the layout.
 	if (m_layout)
 	{
 		m_layout->Release();
 		m_layout = 0;
 	}
 
-	// Release the pixel shader.
 	if (m_pixelShader)
 	{
 		m_pixelShader->Release();
 		m_pixelShader = 0;
 	}
 
-	// Release the vertex shader.
 	if (m_vertexShader)
 	{
 		m_vertexShader->Release();

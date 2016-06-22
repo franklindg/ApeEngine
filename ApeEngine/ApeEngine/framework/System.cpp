@@ -1,9 +1,8 @@
 #include "System.h"
 
 System::System()
-{
-	m_Application = 0;
-}
+	: m_pApplication(0)
+{}
 
 System::System(const System& other)
 {
@@ -17,25 +16,14 @@ System::~System()
 
 bool System::Initialize()
 {
-	int screenWidth, screenHeight;
-	bool result;
+	int screenWidth(0), screenHeight(0);
 
-
-	// Initialize the width and height of the screen to zero before sending the variables into the function.
-	screenWidth = 0;
-	screenHeight = 0;
-
-	// Initialize the windows api.
+	// Initialize Windows API
 	InitializeWindows(screenWidth, screenHeight);
 
-	m_Application = new Application;
-	if (!m_Application)
-	{
-		return false;
-	}
+	m_pApplication = std::make_shared<Application>();
 
-	result = m_Application->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
-	if (!result)
+	if (!m_pApplication->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight))
 	{
 		return false;
 	}
@@ -52,7 +40,7 @@ void System::Run()
 	// Initialize the message structure.
 	ZeroMemory(&msg, sizeof(MSG));
 
-	// Loop until there is a quit message from the window or the user.
+	// Main window message loop.
 	done = false;
 	while (!done)
 	{
@@ -63,14 +51,14 @@ void System::Run()
 			DispatchMessage(&msg);
 		}
 
-		// If windows signals to end the application then exit out.
+		// Exits the application if Windows Quit signal is recieved.
 		if (msg.message == WM_QUIT)
 		{
 			done = true;
 		}
 		else
 		{
-			// Otherwise do the frame processing.
+			// Processes the Frame interface.
 			result = Frame();
 			if (!result)
 			{
@@ -85,14 +73,12 @@ void System::Run()
 
 void System::Shutdown()
 {
-	if (m_Application)
+	if (m_pApplication)
 	{
-		m_Application->Shutdown();
-		delete m_Application;
-		m_Application = 0;
+		m_pApplication->Shutdown();
+		m_pApplication.reset();
 	}
 
-	// Shutdown the window.
 	ShutdownWindows();
 
 	return;
@@ -102,7 +88,7 @@ bool System::Frame()
 {
 	bool result;
 	
-	result = m_Application->Frame();
+	result = m_pApplication->Frame();
 	if (!result)
 	{
 		return false;

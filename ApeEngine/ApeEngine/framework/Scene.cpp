@@ -4,10 +4,10 @@
 #include "Scene.h"
 
 Scene::Scene()
-	: m_pUserInterface(0)
+	: m_pUserInterface(nullptr)
 	, m_pCamera(nullptr)
-	, m_pLight(0)
-	, m_pPosition(0)
+	, m_pLight(nullptr)
+	, m_pPosition(nullptr)
 	, m_pModel(nullptr)
 	, m_pFullScreenWindow(nullptr)
 	, m_pDeferredBuffers(nullptr)
@@ -31,7 +31,7 @@ bool Scene::Initialize(D3DManager* Direct3D, HWND hwnd, int screenWidth, int scr
 	bool result;
 
 	/****** Initialize User Interface ******/
-	m_pUserInterface = new UserInterface;
+	m_pUserInterface = std::make_shared<UserInterface>();
 	if (!m_pUserInterface)
 	{
 		return false;
@@ -54,7 +54,7 @@ bool Scene::Initialize(D3DManager* Direct3D, HWND hwnd, int screenWidth, int scr
 	m_pCamera->RenderBaseViewMatrix();
 
 	/****** Initialize Light ******/
-	m_pLight = new Light;
+	m_pLight = std::make_shared<Light>();
 	if (!m_pLight)
 	{
 		return false;
@@ -64,7 +64,7 @@ bool Scene::Initialize(D3DManager* Direct3D, HWND hwnd, int screenWidth, int scr
 	m_pLight->SetDirection(0.0f, 0.0f, 1.0f);
 	
 	/****** Initialize Position ******/
-	m_pPosition = new Position;
+	m_pPosition = std::make_shared<Position>();
 	if (!m_pPosition)
 	{
 		return false;
@@ -74,32 +74,19 @@ bool Scene::Initialize(D3DManager* Direct3D, HWND hwnd, int screenWidth, int scr
 	m_pPosition->SetRotation(0.0f, 0.0f, 0.0f);
 
 	/****** Initialize Model ******/
-	m_pModel = std::make_shared<Model>();
+	m_pModel = std::make_shared<Model>(Direct3D->GetDevice(), "data/models/sphere.obj");
 	if (!m_pModel)
 	{
 		return false;
 	}
 
-	result = m_pModel->Initialize(Direct3D->GetDevice(), "data/models/sphere.obj");
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
-		return false;
-	}
-
 	/****** Initialize OrthoWindow ******/
-	m_pFullScreenWindow = std::make_shared<OrthoWindow>();
+	m_pFullScreenWindow = std::make_shared<OrthoWindow>(Direct3D->GetDevice(), screenWidth, screenHeight);
 	if (!m_pFullScreenWindow)
 	{
 		return false;
 	}
 
-	result = m_pFullScreenWindow->Initialize(Direct3D->GetDevice(), screenWidth, screenHeight);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the orthographic window object.", L"Error", MB_OK);
-		return false;
-	}
 	/****** Initialize DeferredBuffers ******/
 	m_pDeferredBuffers = std::make_shared<DeferredBuffers>();
 	if (!m_pDeferredBuffers)
@@ -154,20 +141,17 @@ void Scene::Shutdown()
 {
 	if (m_pModel)
 	{
-		m_pModel->Shutdown();
 		m_pModel.reset();
 	}
 
 	if (m_pPosition)
 	{
-		delete m_pPosition;
-		m_pPosition = 0;
+		m_pPosition.reset();;
 	}
 
 	if (m_pLight)
 	{
-		delete m_pLight;
-		m_pLight = 0;
+		m_pLight.reset();
 	}
 
 	if (m_pLightShader)
@@ -184,7 +168,6 @@ void Scene::Shutdown()
 
 	if (m_pFullScreenWindow)
 	{
-		m_pFullScreenWindow->Shutdown();
 		m_pFullScreenWindow.reset();
 	}
 
@@ -197,14 +180,12 @@ void Scene::Shutdown()
 	if (m_pCamera)
 	{
 		m_pCamera.reset();
-		m_pCamera = 0;
 	}
 
 	if (m_pUserInterface)
 	{
 		m_pUserInterface->Shutdown();
-		delete m_pUserInterface;
-		m_pUserInterface = 0;
+		m_pUserInterface.reset();
 	}
 
 	return;

@@ -1,23 +1,10 @@
-/////////////////////////////////////////////
-// Filename: System.h
-/////////////////////////////////////////////
-
 #ifndef _SYSTEM_H
 #define _SYSTEM_H
 
-////////////
-// PRE-PROCESSING DIRECTIVES //
-////////////
-#define WIN32_LEAN_AND_MEAN
+// PCH
+#include "ApePCH.h"
 
-/////////
-// WINDOWS INCLUDES //
-/////////
-#include <Windows.h>
-
-////////
-// CLASS INCLUDES //
-////////
+// CLASS INCLUDES 
 #include "Application.h"
 
 ///////////////////
@@ -45,17 +32,12 @@ private:
 	WCHAR* m_applicationName;
 	HINSTANCE m_hinstance;
 	HWND m_hwnd;
-	Application* m_Application;
+	std::shared_ptr<Application> m_pApplication;
 };
 
-////////
-// FUNCTION PROTOTYPES //
-////////
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-////////
-// GLOBALS //
-////////
+// GLOBAL VARIABLES
 static System* ApplicationHandle = 0;
 
 #endif

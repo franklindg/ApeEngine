@@ -5,28 +5,27 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdLine, int CmdShow)
 {
-	System* m_System;
+	std::shared_ptr<System> m_pSystem;
 	bool result;
 
 
 	// Create the system object.
-	m_System = new System;
-	if (!m_System)
+	m_pSystem = std::make_shared<System>();
+	if (!m_pSystem)
 	{
 		return 0;
 	}
 
 	// Initialize and run the system object.
-	result = m_System->Initialize();
+	result = m_pSystem->Initialize();
 	if (result)
 	{
-		m_System->Run();
+		m_pSystem->Run();
 	}
 
 	// Shutdown and release the system object.
-	m_System->Shutdown();
-	delete m_System;
-	m_System = 0;
+	m_pSystem->Shutdown();
+	m_pSystem.reset();
 
 	return 0;
 }

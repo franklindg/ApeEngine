@@ -1,20 +1,13 @@
-/////////////////////////////////////////////
-// Filename: Application.h
-/////////////////////////////////////////////
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
-////////////
-// GLOBALS //
-////////////
+// GLOBALS
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
-/////////////
-// CLASS INCLUDES //
-/////////////
+// CLASS INCLUDES
 #include "ApePCH.h"
 #include "Input.h"
 #include "D3DManager.h"

@@ -14,7 +14,6 @@
 #include "UserInterface.h"
 #include "Camera.h"
 #include "../render3d/Model.h"
-#include "../utilitiesfrw/Frustrum.h"
 #include "../utilities/Timer.h"
 #include "../utilitiesfrw/Light.h"
 #include "../utilitiesfrw/Position.h"
@@ -53,9 +52,9 @@ private:
 	std::shared_ptr<Model>			 m_pModel;
 	std::shared_ptr<OrthoWindow>	 m_pFullScreenWindow;
 	std::shared_ptr<LightShader>	 m_pLightShader;
-	Position	     *m_pPosition;
-	UserInterface    *m_pUserInterface;
-	Light		     *m_pLight;
+	std::shared_ptr<Position>		 m_pPosition;
+	std::shared_ptr<UserInterface>	 m_pUserInterface;
+	std::shared_ptr<Light>		     m_pLight;
 
 	XMFLOAT3 m_CameraPos;
 

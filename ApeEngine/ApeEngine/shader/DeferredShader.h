@@ -1,12 +1,7 @@
-/////////////////////////////////////////////
-// Filename: DeferredShader.h
-/////////////////////////////////////////////
 #ifndef _DEFERRED_SHADER_H
 #define _DEFERRED_SHADER_H
 
-//////////
-// INCLUDES //
-//////////
+// INCLUDES
 #include <d3d11_2.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -19,14 +14,6 @@ using namespace std;
 ///////////////////
 // Class name: DeferredShader //
 ///////////////////
-/////////////////// 
-
-
-
-
-
-
-
 class DeferredShader
 {
 private:
@@ -71,11 +58,9 @@ private:
 	bool GetShaderInformation();
 
 private:
-	// Device COM objects.
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext;
-	
-	// Shader type COM objects.
+		
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_pVertexShader;
 	Microsoft::WRL::ComPtr<ID3D11HullShader> m_pHullShader;
 	Microsoft::WRL::ComPtr<ID3D11DomainShader> m_pDomainShader;

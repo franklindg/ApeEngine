@@ -1,6 +1,3 @@
-/////////////////////////////////////////////
-// Filename: DeferredShader.cpp
-/////////////////////////////////////////////
 #include "DeferredShader.h"
 
 DXGI_FORMAT GetDXGIFormat(const D3D11_SIGNATURE_PARAMETER_DESC& paramDesc);
@@ -55,16 +52,9 @@ void DeferredShader::Shutdown()
 bool DeferredShader::Render(UINT indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix,
 							ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
 {
-	bool result;
-
-	// Set the shader parameters that it will use for rendering.
-	result = SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap);
-	if (!result)
-	{
+	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap))
 		return false;
-	}
 
-	// Now render the prepared buffers with the shader.
 	RenderShader(indexCount);
 
 	return true;
@@ -295,7 +285,7 @@ bool DeferredShader::SetShaderParameters(CXMMATRIX worldMatrix, CXMMATRIX viewMa
 	ID3D11Buffer* pBuffers2[] = { m_pMaterialBuffer.Get() };
 	bufferNumber = 0;
 	m_pDeviceContext->PSSetConstantBuffers(bufferNumber, 1, pBuffers2);
-	
+
 	return true;
 }
 

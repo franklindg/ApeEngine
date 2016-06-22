@@ -4,11 +4,10 @@
 #include "RenderTexture.h"
 
 RenderTexture::RenderTexture()
-{
-	m_renderTargetTexture = 0;
-	m_renderTargetView = 0;
-	m_shaderResourceView = 0;
-}
+	: m_renderTargetTexture(0)
+	, m_renderTargetView(0)
+	, m_shaderResourceView(0)
+{}
 
 RenderTexture::RenderTexture(const RenderTexture& other)
 {

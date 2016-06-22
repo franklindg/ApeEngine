@@ -4,15 +4,13 @@
 #include "UserInterface.h"
 
 UserInterface::UserInterface()
-{
-	m_Font1 = 0;
-	m_FpsString = 0;
-	m_VideoStrings = 0;
-	m_PositionStrings = 0;
-	m_RenderCountStrings = 0;
-	m_MiniMap = 0;
-	m_MouseCursor = 0;
-}
+	: m_pFont(nullptr)
+	, m_pFpsString(nullptr)
+	, m_pVideoStrings(nullptr)
+	, m_pPositionStrings(nullptr)
+	, m_pRenderCountStrings(nullptr)
+	, m_pMouseCursor(nullptr)
+{}
 
 
 UserInterface::UserInterface(const UserInterface& other)
@@ -36,14 +34,14 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 
 
 	// Create the first font object.
-	m_Font1 = new apeFont;
-	if (!m_Font1)
+	m_pFont = new apeFont;
+	if (!m_pFont)
 	{
 		return false;
 	}
 
 	// Initialize the first font object.
-	result = m_Font1->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), "data/userinterface/font/font01.txt",
+	result = m_pFont->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), "data/userinterface/font/font01.txt",
 		"font01.tga", 32.0f, 3);
 	if (!result)
 	{
@@ -51,14 +49,14 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 	}
 
 	// Create the text object for the fps string.
-	m_FpsString = new Text;
-	if (!m_FpsString)
+	m_pFpsString = new Text;
+	if (!m_pFpsString)
 	{
 		return false;
 	}
 
 	// Initialize the fps text string.
-	result = m_FpsString->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pFpsString->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"Fps: 0", 10, 50, 0.0f, 1.0f, 0.0f);
 	if (!result)
 	{
@@ -80,21 +78,21 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 	strcat_s(memoryString, " MB");
 
 	// Create the text objects for the video strings.
-	m_VideoStrings = new Text[2];
-	if (!m_VideoStrings)
+	m_pVideoStrings = new Text[2];
+	if (!m_pVideoStrings)
 	{
 		return false;
 	}
 
 	// Initialize the video text strings.
-	result = m_VideoStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 256, false, m_Font1,
+	result = m_pVideoStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 256, false, m_pFont,
 		videoString, 10, 10, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_VideoStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
+	result = m_pVideoStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_pFont,
 		memoryString, 10, 30, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
@@ -102,49 +100,49 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 	}
 
 	// Create the text objects for the position strings.
-	m_PositionStrings = new Text[6];
-	if (!m_PositionStrings)
+	m_pPositionStrings = new Text[6];
+	if (!m_pPositionStrings)
 	{
 		return false;
 	}
 
 	// Initialize the position text strings.
-	result = m_PositionStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"X: 0", 10, 310, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_PositionStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"Y: 0", 10, 330, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_PositionStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"Z: 0", 10, 350, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_PositionStrings[3].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[3].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"rX: 0", 10, 370, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_PositionStrings[4].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[4].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"rY: 0", 10, 390, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_PositionStrings[5].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_Font1,
+	result = m_pPositionStrings[5].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 16, false, m_pFont,
 		"rZ: 0", 10, 410, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
@@ -157,52 +155,40 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 		m_previousPosition[i] = -1;
 	}
 
-	m_RenderCountStrings = new Text[3];
-	if (!m_RenderCountStrings)
+	m_pRenderCountStrings = new Text[3];
+	if (!m_pRenderCountStrings)
 	{
 		return false;
 	}
 
-	result = m_RenderCountStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false,
-		m_Font1, "Polys Drawn: 0", 10, 260, 1.0f, 1.0f, 1.0f);
+	result = m_pRenderCountStrings[0].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false,
+		m_pFont, "Polys Drawn: 0", 10, 260, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_RenderCountStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
+	result = m_pRenderCountStrings[1].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_pFont,
 		"Cells Drawn: 0", 10, 280, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	result = m_RenderCountStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_Font1,
+	result = m_pRenderCountStrings[2].Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 32, false, m_pFont,
 		"Cells Culled: 0", 10, 300, 1.0f, 1.0f, 1.0f);
 	if (!result)
 	{
 		return false;
 	}
 
-	m_MiniMap = new MiniMap;
-	if (!m_MiniMap)
+	m_pMouseCursor = new MouseCursor;
+	if (!m_pMouseCursor)
 	{
 		return false;
 	}
 
-	result = m_MiniMap->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight, 1025, 1025);
-	if (!m_MiniMap)
-	{
-		return false;
-	}
-
-	m_MouseCursor = new MouseCursor;
-	if (!m_MouseCursor)
-	{
-		return false;
-	}
-
-	result = m_MouseCursor->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight);
+	result = m_pMouseCursor->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), screenWidth, screenHeight);
 	if (!result)
 	{
 		return false;
@@ -213,69 +199,62 @@ bool UserInterface::Initialize(D3DManager* Direct3D, int screenHeight, int scree
 
 void UserInterface::Shutdown()
 {
-	if (m_MouseCursor)
+	if (m_pMouseCursor)
 	{
-		m_MouseCursor->Shutdown();
-		delete m_MouseCursor;
-		m_MouseCursor = 0;
+		m_pMouseCursor->Shutdown();
+		delete m_pMouseCursor;
+		m_pMouseCursor = nullptr;
 	}
 
-	if (m_MiniMap)
+	if (m_pRenderCountStrings)
 	{
-		m_MiniMap->Shutdown();
-		delete m_MiniMap;
-		m_MiniMap = 0;
-	}
+		m_pRenderCountStrings[0].Shutdown();
+		m_pRenderCountStrings[1].Shutdown();
+		m_pRenderCountStrings[2].Shutdown();
 
-	if (m_RenderCountStrings)
-	{
-		m_RenderCountStrings[0].Shutdown();
-		m_RenderCountStrings[1].Shutdown();
-		m_RenderCountStrings[2].Shutdown();
-
-		delete[] m_RenderCountStrings;
-		m_RenderCountStrings = 0;
+		delete[] m_pRenderCountStrings;
+		m_pRenderCountStrings = nullptr;
 	}
 
 	// Release the position text strings.
-	if (m_PositionStrings)
+	if (m_pPositionStrings)
 	{
-		m_PositionStrings[0].Shutdown();
-		m_PositionStrings[1].Shutdown();
-		m_PositionStrings[2].Shutdown();
-		m_PositionStrings[3].Shutdown();
-		m_PositionStrings[4].Shutdown();
-		m_PositionStrings[5].Shutdown();
+		m_pPositionStrings[0].Shutdown();
+		m_pPositionStrings[1].Shutdown();
+		m_pPositionStrings[2].Shutdown();
+		m_pPositionStrings[3].Shutdown();
+		m_pPositionStrings[4].Shutdown();
+		m_pPositionStrings[5].Shutdown();
 
-		delete[] m_PositionStrings;
-		m_PositionStrings = 0;
+		delete[] m_pPositionStrings;
+		m_pPositionStrings = nullptr;
 	}
 
 	// Release the video card string.
-	if (m_VideoStrings)
+	if (m_pVideoStrings)
 	{
-		m_VideoStrings[0].Shutdown();
-		m_VideoStrings[1].Shutdown();
+		m_pVideoStrings[0].Shutdown();
+		m_pVideoStrings[1].Shutdown();
 
-		delete[] m_VideoStrings;
-		m_VideoStrings = 0;
+		delete[] m_pVideoStrings;
+		m_pVideoStrings = nullptr;
 	}
 
 
 	// Release the fps text string.
-	if (m_FpsString)
+	if (m_pFpsString)
 	{
-		m_FpsString->Shutdown();
-		delete m_FpsString;
-		m_FpsString = 0;
+		m_pFpsString->Shutdown();
+		delete m_pFpsString;
+		m_pFpsString = nullptr;
 	}
 
 	// Release the font object.
-	if (m_Font1)
+	if (m_pFont)
 	{
-		m_Font1->Shutdown();
-		delete m_Font1;
-		m_Font1 = 0;
+		m_pFont->Shutdown();
+		delete m_pFont;
+		m_pFont = nullptr;
 	}
 
 	return;
@@ -301,9 +280,7 @@ bool UserInterface::Frame(ID3D11DeviceContext* deviceContext, Input* input, int 
 		return false;
 	}
 
-	m_MiniMap->PositionUpdate(posX, posZ);
-
-	m_MouseCursor->PositionUpdate(input);
+	m_pMouseCursor->PositionUpdate(input);
 	return true;
 }
 
@@ -319,23 +296,23 @@ bool UserInterface::Render(D3DManager* Direct3D, ShaderManager* ShaderManager, C
 	Direct3D->TurnAlphaBlendingOn();
 
 
-	m_FpsString->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_Font1->GetTexture());
+	m_pFpsString->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
 
-	m_VideoStrings[0].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_Font1->GetTexture());
-	m_VideoStrings[1].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_Font1->GetTexture());
+	m_pVideoStrings[0].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
+	m_pVideoStrings[1].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
 
 	for (i = 0; i<6; i++)
 	{
-		m_PositionStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_Font1->GetTexture());
+		m_pPositionStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
 	}
 
 	for (i = 0; i < 3; i++)
 	{
-		m_RenderCountStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_Font1->GetTexture());
+		m_pRenderCountStrings[i].Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix, m_pFont->GetTexture());
 	}
 
 
-result = m_MouseCursor->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix);
+	result = m_pMouseCursor->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix);
 	if (!result)
 	{
 		return false;
@@ -343,13 +320,6 @@ result = m_MouseCursor->Render(Direct3D->GetDeviceContext(), ShaderManager, worl
 
 
 	Direct3D->TurnAlphaBlendingOff();
-	
-
-	result = m_MiniMap->Render(Direct3D->GetDeviceContext(), ShaderManager, worldMatrix, viewMatrix, orthoMatrix);
-	if (!result)
-	{
-		return false;
-	}
 
 	// Turn the Z buffer back on now that the 2D rendering has completed.
 	Direct3D->TurnZBufferOn();
@@ -413,7 +383,7 @@ bool UserInterface::UpdateFpsString(ID3D11DeviceContext* deviceContext, int fps)
 	}
 
 	// Update the sentence vertex buffer with the new string information.
-	result = m_FpsString->UpdateSentence(deviceContext, m_Font1, finalString, 10, 50, red, green, blue);
+	result = m_pFpsString->UpdateSentence(deviceContext, m_pFont, finalString, 10, 50, red, green, blue);
 	if (!result)
 	{
 		return false;
@@ -447,7 +417,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(positionX, tempString, 10);
 		strcpy_s(finalString, "X: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[0].UpdateSentence(deviceContext, m_Font1, finalString, 10, 100, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[0].UpdateSentence(deviceContext, m_pFont, finalString, 10, 100, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -457,7 +427,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(positionY, tempString, 10);
 		strcpy_s(finalString, "Y: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[1].UpdateSentence(deviceContext, m_Font1, finalString, 10, 120, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[1].UpdateSentence(deviceContext, m_pFont, finalString, 10, 120, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -467,7 +437,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(positionZ, tempString, 10);
 		strcpy_s(finalString, "Z: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[2].UpdateSentence(deviceContext, m_Font1, finalString, 10, 140, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[2].UpdateSentence(deviceContext, m_pFont, finalString, 10, 140, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -477,7 +447,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(rotationX, tempString, 10);
 		strcpy_s(finalString, "rX: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[3].UpdateSentence(deviceContext, m_Font1, finalString, 10, 180, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[3].UpdateSentence(deviceContext, m_pFont, finalString, 10, 180, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -487,7 +457,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(rotationY, tempString, 10);
 		strcpy_s(finalString, "rY: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[4].UpdateSentence(deviceContext, m_Font1, finalString, 10, 200, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[4].UpdateSentence(deviceContext, m_pFont, finalString, 10, 200, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -497,7 +467,7 @@ bool UserInterface::UpdatePositionStrings(ID3D11DeviceContext* deviceContext, fl
 		_itoa_s(rotationZ, tempString, 10);
 		strcpy_s(finalString, "rZ: ");
 		strcat_s(finalString, tempString);
-		result = m_PositionStrings[5].UpdateSentence(deviceContext, m_Font1, finalString, 10, 220, 0.5f, 0.9f, 0.0f);
+		result = m_pPositionStrings[5].UpdateSentence(deviceContext, m_pFont, finalString, 10, 220, 0.5f, 0.9f, 0.0f);
 		if (!result) { return false; }
 	}
 
@@ -518,7 +488,7 @@ bool UserInterface::UpdateRenderCounts(ID3D11DeviceContext* deviceContext, int r
 	strcat_s(finalString, tempString);
 
 	// Update the sentence vertex buffer with the new string information.
-	result = m_RenderCountStrings[0].UpdateSentence(deviceContext, m_Font1, finalString, 10, 260, 0.5f, 0.9f, 0.0f);
+	result = m_pRenderCountStrings[0].UpdateSentence(deviceContext, m_pFont, finalString, 10, 260, 0.5f, 0.9f, 0.0f);
 	if (!result)
 	{
 		return false;
@@ -532,7 +502,7 @@ bool UserInterface::UpdateRenderCounts(ID3D11DeviceContext* deviceContext, int r
 	strcat_s(finalString, tempString);
 
 	// Update the sentence vertex buffer with the new string information.
-	result = m_RenderCountStrings[1].UpdateSentence(deviceContext, m_Font1, finalString, 10, 280, 0.5f, 0.9f, 0.0f);
+	result = m_pRenderCountStrings[1].UpdateSentence(deviceContext, m_pFont, finalString, 10, 280, 0.5f, 0.9f, 0.0f);
 	if (!result)
 	{
 		return false;
@@ -546,7 +516,7 @@ bool UserInterface::UpdateRenderCounts(ID3D11DeviceContext* deviceContext, int r
 	strcat_s(finalString, tempString);
 
 	// Update the sentence vertex buffer with the new string information.
-	result = m_RenderCountStrings[2].UpdateSentence(deviceContext, m_Font1, finalString, 10, 300, 0.5f, 0.9f, 0.0f);
+	result = m_pRenderCountStrings[2].UpdateSentence(deviceContext, m_pFont, finalString, 10, 300, 0.5f, 0.9f, 0.0f);
 	if (!result)
 	{
 		return false;

@@ -36,11 +36,12 @@ private:
 	bool UpdatePositionStrings(ID3D11DeviceContext*, float, float, float, float, float, float);
 
 private:
-	apeFont*		 m_Font1;
-	Text		*m_FpsString, *m_VideoStrings, *m_PositionStrings;
-	Text*		 m_RenderCountStrings;
-	MiniMap*	 m_MiniMap;
-	MouseCursor* m_MouseCursor;
+	apeFont* m_pFont;
+	Text* m_pFpsString;
+	Text* m_pVideoStrings;
+	Text* m_pPositionStrings;
+	Text* m_pRenderCountStrings;
+	MouseCursor* m_pMouseCursor;
 	int m_previousFps;
 	int m_previousPosition[6];
 };
