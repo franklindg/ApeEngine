@@ -61,9 +61,9 @@ bool SkydomeShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, X
 bool SkydomeShader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename)
 {
 	HRESULT result;
-	ID3D10Blob* errorMessage;
-	ID3D10Blob* vertexShaderBuffer;
-	ID3D10Blob* pixelShaderBuffer;
+	ID3DBlob* errorMessage;
+	ID3DBlob* vertexShaderBuffer;
+	ID3DBlob* pixelShaderBuffer;
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[1];
 	unsigned int numElements;
 	D3D11_BUFFER_DESC matrixBufferDesc;
@@ -225,7 +225,7 @@ void SkydomeShader::ShutdownShader()
 	return;
 }
 
-void SkydomeShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
+void SkydomeShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
 {
 	char* compileErrors;
 	unsigned __int64 bufferSize, i;

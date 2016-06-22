@@ -19,37 +19,20 @@ apeFont::~apeFont()
 
 }
 
-bool apeFont::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* fontFilename, char* textureFilename,
-					  float fontHeight, int spaceSize)
+bool apeFont::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* fontFilename, float fontHeight, int spaceSize)
 {
-	bool result;
-
 	m_fontHeight = fontHeight;
 	m_spaceSize = spaceSize;
 
 	// Load in the text file containing the font data.
-	result = LoadFontData(fontFilename);
-	if (!result)
-	{
+	if (!LoadFontData(fontFilename))
 		return false;
-	}
-
-	// Load the texture that has the font characters on it.
-	result = LoadTexture(device, deviceContext, textureFilename);
-	if (!result)
-	{
-		return false;
-	}
 
 	return true;
 }
 
 void apeFont::Shutdown()
 {
-	// Release the font texture.
-	ReleaseTexture();
-
-	// Release the font data.
 	ReleaseFontData();
 
 	return;
@@ -102,7 +85,6 @@ bool apeFont::LoadFontData(char* filename)
 
 void apeFont::ReleaseFontData()
 {
-	// Release the font data array.
 	if (m_Font)
 	{
 		delete[] m_Font;
@@ -110,46 +92,6 @@ void apeFont::ReleaseFontData()
 	}
 
 	return;
-}
-
-bool apeFont::LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename)
-{
-	bool result;
-
-
-	// Create the texture object.
-	m_FontTexture = new Texture;
-	if (!m_FontTexture)
-	{
-		return false;
-	}
-
-	// Initialize the texture object.
-	result = m_FontTexture->Initialize(device, deviceContext, filename);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void apeFont::ReleaseTexture()
-{
-	// Release the texture object.
-	if (m_FontTexture)
-	{
-		m_FontTexture->Shutdown();
-		delete m_FontTexture;
-		m_FontTexture = 0;
-	}
-
-	return;
-}
-
-ID3D11ShaderResourceView* apeFont::GetTexture()
-{
-	return m_FontTexture->GetTexture();
 }
 
 void apeFont::BuildVertexArray(void* vertice, char* sentence, float drawX, float drawY)

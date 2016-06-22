@@ -27,11 +27,6 @@ Position::Position()
 	m_lookDownSpeed = 0.0f;
 }
 
-Position::Position(const Position& other)
-{
-
-}
-
 Position::~Position()
 {
 

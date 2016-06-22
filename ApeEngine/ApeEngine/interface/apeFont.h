@@ -44,10 +44,10 @@ public:
 	apeFont(const apeFont&);
 	~apeFont();
 
-	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, char*, float, int);
+	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*, float, int);
 	void Shutdown();
 
-	ID3D11ShaderResourceView* GetTexture();
+	
 	void BuildVertexArray(void*, char*, float, float);
 	int GetSentencePixelLength(char*);
 	int GetFontHeight();
@@ -55,8 +55,6 @@ public:
 private:
 	bool LoadFontData(char*);
 	void ReleaseFontData();
-	bool LoadTexture(ID3D11Device*, ID3D11DeviceContext*, char*);
-	void ReleaseTexture();
 
 private:
 	FontType3* m_Font;

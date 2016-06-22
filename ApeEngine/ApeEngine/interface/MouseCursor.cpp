@@ -39,7 +39,7 @@ bool MouseCursor::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCo
 		return false;
 	}
 
-	result = m_CursorBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 101, 101, "mouse-cursor03-3.tga");
+	result = m_CursorBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 101, 101);
 	if (!result)
 	{
 		return false;
@@ -61,7 +61,7 @@ void MouseCursor::Shutdown()
 }
 
 bool MouseCursor::Render(ID3D11DeviceContext* deviceContext, ShaderManager* shaderManager, CXMMATRIX worldMatrix,
-	CXMMATRIX viewMatrix, CXMMATRIX orthoMatrix)
+	CXMMATRIX viewMatrix, CXMMATRIX projMatrix, ID3D11ShaderResourceView* texture)
 {
 	bool result;
 
@@ -71,8 +71,8 @@ bool MouseCursor::Render(ID3D11DeviceContext* deviceContext, ShaderManager* shad
 		return false;
 	}
 
-	result = shaderManager->RenderTextureShader(deviceContext, m_CursorBitmap->GetIndexCount(), worldMatrix, viewMatrix,
-												orthoMatrix, m_CursorBitmap->GetTexture());
+	result = shaderManager->RenderTextureShader(m_CursorBitmap->GetIndexCount(), worldMatrix, viewMatrix, projMatrix,
+												texture);
 	if (!result)
 	{
 		return false;

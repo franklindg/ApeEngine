@@ -54,7 +54,6 @@ private:
 
 public:
 	Model(ID3D11Device* device, const char* filename);
-	Model(const Model&);
 	~Model();
 
 	void Render(ID3D11DeviceContext*);

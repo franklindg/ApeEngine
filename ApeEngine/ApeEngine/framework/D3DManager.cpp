@@ -1,34 +1,117 @@
-/////////////////////////////////////////////
-// Filename: D3DManager.cpp
-/////////////////////////////////////////////
 #include "D3DManager.h"
 
-D3DManager::D3DManager()
+D3DManager::D3DManager(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
+	float screenDepth, float screenNear)
+	: m_pSwapChain(0)
+	, m_device(0)
+	, m_deviceContext(0)
+	, m_renderTargetView(0)
+	, m_depthStencilBuffer(0)
+	, m_depthStencilState(0)
+	, m_depthStencilView(0)
+	, m_rasterState(0)
+	, m_rasterStateNoCulling(0)
+	, m_rasterStateWireframe(0)
+	, m_depthDisabledStencilState(0)
+	, m_alphaEnableBlendingState(0)
+	, m_alphaDisableBlendingState(0)
+	, m_alphaEnableBlendingState2(0)
 {
-	m_pSwapChain = 0;
-	m_device = 0;
-	m_deviceContext = 0;
-	m_renderTargetView = 0;
-	m_depthStencilBuffer = 0;
-	m_depthStencilState			= 0;
-	m_depthStencilView			= 0;
-	m_rasterState				= 0;
-	m_rasterStateNoCulling		= 0;
-	m_rasterStateWireframe		= 0;
-	m_depthDisabledStencilState = 0;
-	m_alphaEnableBlendingState	= 0;
-	m_alphaDisableBlendingState = 0;
-	m_alphaEnableBlendingState2 = 0;
-}
-
-D3DManager::D3DManager(const D3DManager& other)
-{
-
+	Initialize(screenWidth, screenHeight, vsync, hwnd, fullscreen,
+		screenDepth, screenNear);
 }
 
 D3DManager::~D3DManager()
 {
+	// Before shutting down sets to windowed mode.
+	if (m_pSwapChain)
+	{
+		m_pSwapChain->SetFullscreenState(false, NULL);
+	}
 
+	if (m_alphaEnableBlendingState2)
+	{
+		m_alphaEnableBlendingState2->Release();
+		m_alphaEnableBlendingState2 = 0;
+	}
+
+	if (m_alphaEnableBlendingState)
+	{
+		m_alphaEnableBlendingState->Release();
+		m_alphaEnableBlendingState = 0;
+	}
+
+	if (m_alphaDisableBlendingState)
+	{
+		m_alphaDisableBlendingState->Release();
+		m_alphaDisableBlendingState = 0;
+	}
+
+	if (m_depthDisabledStencilState)
+	{
+		m_depthDisabledStencilState->Release();
+		m_depthDisabledStencilState = 0;
+	}
+
+	if (m_rasterStateWireframe)
+	{
+		m_rasterStateWireframe->Release();
+		m_rasterStateWireframe = 0;
+	}
+
+	if (m_rasterStateNoCulling)
+	{
+		m_rasterStateNoCulling->Release();
+		m_rasterStateNoCulling = 0;
+	}
+
+	if (m_rasterState)
+	{
+		m_rasterState->Release();
+		m_rasterState = 0;
+	}
+
+	if (m_depthStencilView)
+	{
+		m_depthStencilView->Release();
+		m_depthStencilView = 0;
+	}
+
+	if (m_depthStencilState)
+	{
+		m_depthStencilState->Release();
+		m_depthStencilState = 0;
+	}
+
+	if (m_depthStencilBuffer)
+	{
+		m_depthStencilBuffer->Release();
+		m_depthStencilBuffer = 0;
+	}
+
+	if (m_renderTargetView)
+	{
+		m_renderTargetView->Release();
+		m_renderTargetView = 0;
+	}
+
+	if (m_deviceContext)
+	{
+		m_deviceContext->Release();
+		m_deviceContext = 0;
+	}
+
+	if (m_device)
+	{
+		m_device->Release();
+		m_device = 0;
+	}
+
+	if (m_pSwapChain)
+	{
+		m_pSwapChain->Release();
+		m_pSwapChain = 0;
+	}
 }
 
 bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,
@@ -457,101 +540,6 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 
 
 	return true;
-}
-
-void D3DManager::Shutdown()
-{
-	// Before shutting down set to windowed mode or when you release the swap chain it will throw an exception.
-	if (m_pSwapChain)
-	{
-		m_pSwapChain->SetFullscreenState(false, NULL);
-	}
-
-	if (m_alphaEnableBlendingState2)
-	{
-		m_alphaEnableBlendingState2->Release();
-		m_alphaEnableBlendingState2 = 0;
-	}
-
-	if (m_alphaEnableBlendingState)
-	{
-		m_alphaEnableBlendingState->Release();
-		m_alphaEnableBlendingState = 0;
-	}
-
-	if (m_alphaDisableBlendingState)
-	{
-		m_alphaDisableBlendingState->Release();
-		m_alphaDisableBlendingState = 0;
-	}
-
-	if (m_depthDisabledStencilState)
-	{
-		m_depthDisabledStencilState->Release();
-		m_depthDisabledStencilState = 0;
-	}
-
-	if (m_rasterStateWireframe)
-	{
-		m_rasterStateWireframe->Release();
-		m_rasterStateWireframe = 0;
-	}
-
-	if (m_rasterStateNoCulling)
-	{
-		m_rasterStateNoCulling->Release();
-		m_rasterStateNoCulling = 0;
-	}
-
-	if (m_rasterState)
-	{
-		m_rasterState->Release();
-		m_rasterState = 0;
-	}
-
-	if (m_depthStencilView)
-	{
-		m_depthStencilView->Release();
-		m_depthStencilView = 0;
-	}
-
-	if (m_depthStencilState)
-	{
-		m_depthStencilState->Release();
-		m_depthStencilState = 0;
-	}
-
-	if (m_depthStencilBuffer)
-	{
-		m_depthStencilBuffer->Release();
-		m_depthStencilBuffer = 0;
-	}
-
-	if (m_renderTargetView)
-	{
-		m_renderTargetView->Release();
-		m_renderTargetView = 0;
-	}
-
-	if (m_deviceContext)
-	{
-		m_deviceContext->Release();
-		m_deviceContext = 0;
-	}
-
-	if (m_device)
-	{
-		m_device->Release();
-		m_device = 0;
-	}
-
-	if (m_pSwapChain)
-	{
-		m_pSwapChain->Release();
-		m_pSwapChain = 0;
-	}
-
-	return;
 }
 
 void D3DManager::BeginScene(float red, float green, float blue, float alpha)

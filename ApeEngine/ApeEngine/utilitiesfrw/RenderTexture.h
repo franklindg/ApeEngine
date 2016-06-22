@@ -18,7 +18,6 @@ class RenderTexture
 {
 public:
 	RenderTexture();
-	RenderTexture(const RenderTexture&);
 	~RenderTexture();
 
 	bool Initialize(ID3D11Device*, int, int);

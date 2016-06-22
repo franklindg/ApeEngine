@@ -1,14 +1,8 @@
-/////////////////////////////////////////////
-// Filename: TextureManager.h
-/////////////////////////////////////////////
-/////////////////////////////////////////////
-#pragma once
 #ifndef _TEXTURE_MANAGER_H
 #define _TEXTURE_MANAGER_H
 
-//////////
-// CLASS INCLUDES //
-//////////
+
+// INCLUDES 
 #include "../utilitiesfrw/Texture.h"
 #include "ApePCH.h"
 
@@ -18,15 +12,11 @@
 class TextureManager
 {
 public:
-	TextureManager(ID3D11Device* pDevice);
+	TextureManager(ID3D11Device* pDevice, int count);
 	TextureManager(const TextureManager&);	
 	~TextureManager();
 
-	bool Initialize(int);
-	void Shutdown();
-
 	bool LoadTexture(const char*, int);
-	bool LoadTextureA(UINT ID, char* filename);
 	ID3D11ShaderResourceView* GetTexture(int);
 
 private:

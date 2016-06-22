@@ -12,9 +12,6 @@ Model::Model(ID3D11Device* device, const char* filename)
 	}
 }
 
-Model::Model(const Model& other)
-{}
-
 Model::~Model()
 {
 	mModel.VertexBuffer->Release();

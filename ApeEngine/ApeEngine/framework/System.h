@@ -14,12 +14,9 @@ class System
 {
 public:
 	System();
-	System(const System&);
 	~System();
 
-	bool Initialize();
 	void Run();
-	void Shutdown();
 
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 

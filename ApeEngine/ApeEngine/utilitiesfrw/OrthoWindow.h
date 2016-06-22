@@ -21,7 +21,6 @@ private:
 
 public:
 	OrthoWindow(ID3D11Device* device, int windowWidth, int windowHeight);
-	OrthoWindow(const OrthoWindow&);
 	~OrthoWindow();
 
 	void Render(ID3D11DeviceContext*);

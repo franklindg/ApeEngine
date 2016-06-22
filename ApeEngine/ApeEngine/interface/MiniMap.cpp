@@ -39,7 +39,7 @@ bool MiniMap::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContex
 		return false;
 	}
 
-	result = m_MiniMapBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 154, 154, "minimap.tga");
+	result = m_MiniMapBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 154, 154);
 	if (!result)
 	{
 		return false;
@@ -51,7 +51,7 @@ bool MiniMap::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContex
 		return false;
 	}
 
-	result = m_PointBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 3, 3, "point.tga");
+	result = m_PointBitmap->Initialize(device, deviceContext, screenWidth, screenHeight, 3, 3);
 	if (!result)
 	{
 		return false;
@@ -90,8 +90,8 @@ bool MiniMap::Render(ID3D11DeviceContext* deviceContext, ShaderManager* shaderMa
 		return false;
 	}
 
-	result = shaderManager->RenderTextureShader(deviceContext, m_MiniMapBitmap->GetIndexCount(), worldMatrix, viewMatrix,
-		orthoMatrix, m_MiniMapBitmap->GetTexture());
+	result = shaderManager->RenderTextureShader(m_MiniMapBitmap->GetIndexCount(), worldMatrix, viewMatrix, orthoMatrix,
+		m_MiniMapBitmap->GetTexture());
 	if (!result)
 	{
 		return false;
@@ -103,8 +103,8 @@ bool MiniMap::Render(ID3D11DeviceContext* deviceContext, ShaderManager* shaderMa
 		return false;
 	}
 
-	result = shaderManager->RenderTextureShader(deviceContext, m_PointBitmap->GetIndexCount(), worldMatrix, viewMatrix,
-		orthoMatrix, m_PointBitmap->GetTexture());
+	result = shaderManager->RenderTextureShader(m_PointBitmap->GetIndexCount(), worldMatrix, viewMatrix, orthoMatrix,
+		m_PointBitmap->GetTexture());
 	if (!result)
 	{
 		return false;

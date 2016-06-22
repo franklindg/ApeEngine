@@ -6,7 +6,6 @@
 Bitmap::Bitmap()
 	: m_vertexBuffer(nullptr)
 	, m_indexBuffer(nullptr)
-	, m_Texture(nullptr)
 {}
 
 Bitmap::Bitmap(const Bitmap& other)
@@ -20,7 +19,7 @@ Bitmap::~Bitmap()
 }
 
 bool Bitmap::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, int screenWidth, int screenHeight,
-						int bitmapWidth, int bitmapHeight, char* textureFilename)
+						int textureHeight, int textureWidth)
 {
 	bool result;
 
@@ -29,8 +28,8 @@ bool Bitmap::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext
 	m_screenHeight = screenHeight;
 
 	// Store the size in pixels that this bitmap should be rendered at.
-	m_bitmapWidth = bitmapWidth;
-	m_bitmapHeight = bitmapHeight;
+	m_bitmapWidth = textureHeight;
+	m_bitmapHeight = textureWidth;
 
 	// Initialize the previous rendering position to negative one.
 	m_prevPosX = -1;
@@ -43,22 +42,11 @@ bool Bitmap::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext
 		return false;
 	}
 
-	// Load the texture for this model.
-	result = LoadTexture(device, deviceContext, textureFilename);
-	if (!result)
-	{
-		return false;
-	}
-
 	return true;
 }
 
 void Bitmap::Shutdown()
 {
-	// Release the bitmap texture.
-	ReleaseTexture();
-
-	// Shutdown the vertex and index buffers.
 	ShutdownBuffers();
 
 	return;
@@ -85,11 +73,6 @@ bool Bitmap::Render(ID3D11DeviceContext* deviceContext, int positionX, int posit
 int Bitmap::GetIndexCount()
 {
 	return m_indexCount;
-}
-
-ID3D11ShaderResourceView* Bitmap::GetTexture()
-{
-	return m_Texture->GetTexture();
 }
 
 bool Bitmap::InitializeBuffers(ID3D11Device* device)
@@ -265,13 +248,10 @@ bool Bitmap::UpdateBuffers(ID3D11DeviceContext* deviceContext, int positionX, in
 		return false;
 	}
 
-	// Get a pointer to the data in the vertex buffer.
 	verticesPtr = (VertexType*)mappedResource.pData;
 
-	// Copy the data into the vertex buffer.
 	memcpy(verticesPtr, (void*)vertices, (sizeof(VertexType) * m_vertexCount));
 
-	// Unlock the vertex buffer.
 	deviceContext->Unmap(m_vertexBuffer, 0);
 
 	// Release the vertex array as it is no longer needed.
@@ -299,41 +279,6 @@ void Bitmap::RenderBuffers(ID3D11DeviceContext* deviceContext)
 
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	return;
-}
-
-bool Bitmap::LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename)
-{
-	bool result;
-
-
-	// Create the texture object.
-	m_Texture = new Texture;
-	if (!m_Texture)
-	{
-		return false;
-	}
-
-	// Initialize the texture object.
-	result = m_Texture->Initialize(device, deviceContext, filename);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-void Bitmap::ReleaseTexture()
-{
-	// Release the texture object.
-	if (m_Texture)
-	{
-		m_Texture->Shutdown();
-		delete m_Texture;
-		m_Texture = 0;
-	}
 
 	return;
 }

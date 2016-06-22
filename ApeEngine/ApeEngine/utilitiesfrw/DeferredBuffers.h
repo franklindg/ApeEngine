@@ -21,20 +21,23 @@ using namespace DirectX;
 class DeferredBuffers
 {
 public:
-	DeferredBuffers();
+	DeferredBuffers(ID3D11Device* device, int textureWidth, int textureHeight, float screenDepth, float screenNear);
 	DeferredBuffers(const DeferredBuffers&);
 	~DeferredBuffers();
 
-	bool Initialize(ID3D11Device*, int, int, float, float);
-	void Shutdown();
+	bool Initialize(int textureWidth, int textureHeight, float screenDepth, float screenNear);
 
-	void SetRenderTargets(ID3D11DeviceContext*);
-	void ClearRenderTargets(ID3D11DeviceContext*, float, float, float, float);
+	void SetRenderTargets();
+	void ClearRenderTargets(float red, float green, float blue, float alpha);
 
 	ID3D11ShaderResourceView* GetShaderResourceView(int);
 
 private:
 	int m_textureWidth, m_textureHeight;
+
+	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext;
+
 	ID3D11Texture2D* m_renderTargetTextureArray[BUFFER_COUNT];
 	ID3D11RenderTargetView* m_renderTargetViewArray[BUFFER_COUNT];
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_shaderResourceViewArray[BUFFER_COUNT];
