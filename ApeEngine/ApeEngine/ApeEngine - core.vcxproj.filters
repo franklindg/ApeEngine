@@ -18,54 +18,6 @@
     <ClCompile Include="shader\LightShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shader\SkydomeShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader\TerrainShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader\TextureShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader\FontShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shader\ColorShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="terrain\Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="terrain\TerrainCells.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilities\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilities\FramesPerSec.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render3d\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="render3d\Skydome.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\Frustrum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\Position.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="framework\ShaderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="framework\System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,90 +36,42 @@
     <ClCompile Include="framework\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="zdeprecated\Graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="framework\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\RenderTexture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utilitiesfrw\DeferredBuffers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="shader\DeferredShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilitiesfrw\OrthoWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="framework\ApePCH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilities\GlobalStructs.cpp">
+    <ClCompile Include="framework\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WIP\ApeTexture.cpp">
+    <ClCompile Include="framework\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utilitiesfrw\Materials.cpp">
+    <ClCompile Include="framework\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render2d\Bitmap.cpp">
+    <ClCompile Include="framework\Position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buffers\DeferredBuffers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buffers\OrthoWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\FramesPerSec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader\LightShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader\SkydomeShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader\TerrainShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader\TextureShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader\FontShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shader\ColorShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="terrain\Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="terrain\TerrainCells.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities\FramesPerSec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="render3d\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="render3d\Skydome.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\Frustrum.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\Position.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\ShaderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="framework\System.h">
@@ -185,22 +89,10 @@
     <ClInclude Include="framework\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="zdeprecated\Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="framework\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilitiesfrw\RenderTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\DeferredBuffers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shader\DeferredShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilitiesfrw\OrthoWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WIP\Texture.h">
@@ -212,19 +104,28 @@
     <ClInclude Include="framework\ApePCH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilitiesfrw\CPUAccess.h">
+    <ClInclude Include="framework\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilities\GlobalStructs.h">
+    <ClInclude Include="framework\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WIP\ApeTexture.h">
+    <ClInclude Include="framework\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utilitiesfrw\Materials.h">
+    <ClInclude Include="framework\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="render2d\Bitmap.h">
+    <ClInclude Include="buffers\DeferredBuffers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="buffers\OrthoWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\FramesPerSec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -21,9 +21,9 @@ DeferredShader::DeferredShader(ID3D11Device* pDevice)
 
 	D3D11_SAMPLER_DESC samplerDesc;
 
-	CreateShader(VertexShader, L"data/shaders/deferred/deferredrendering.hlsl", "VSMain", "vs_5_0");
+	CreateShader(VertexShader, L"data/shaders/deferredrendering.hlsl", "VSMain", "vs_5_0");
 	GetShaderInformation();
-	CreateShader(PixelShader, L"data/shaders/deferred/deferredrendering.hlsl", "PSMain", "ps_5_0");
+	CreateShader(PixelShader, L"data/shaders/deferredrendering.hlsl", "PSMain", "ps_5_0");
 
 	m_pBlob.Reset();
 
@@ -114,7 +114,7 @@ void DeferredShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd,
 {
 	char* compileErrors;
 	unsigned long bufferSize, i;
-	ofstream fout;
+	std::ofstream fout;
 
 
 	// Get a pointer to the error message text buffer.

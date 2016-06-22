@@ -1,6 +1,3 @@
-/////////////////////////////////////////////
-// Filename: Scene.h
-/////////////////////////////////////////////
 #ifndef _Scene_H
 #define _Scene_H
 
@@ -9,15 +6,15 @@
 /////////////
 #include "D3DManager.h"
 #include "Input.h"
-#include "ShaderManager.h"
 #include "Camera.h"
-#include "../render3d/Model.h"
+#include "Model.h"
+#include "Texture.h"
+#include "Light.h"
+#include "Position.h"
 #include "../utilities/Timer.h"
-#include "../utilitiesfrw/Light.h"
-#include "../utilitiesfrw/Position.h"
-#include "../utilitiesfrw/DeferredBuffers.h"
+#include "../buffers/DeferredBuffers.h"
+#include "../buffers/OrthoWindow.h"
 #include "../shader/DeferredShader.h"
-#include "../utilitiesfrw/OrthoWindow.h"
 #include "../shader/LightShader.h"
 
 ///////////////////
@@ -29,20 +26,17 @@ public:
 	Scene(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear);
 	~Scene();
 
-	bool Frame(D3DManager*, Input*, ShaderManager*, Texture* texture, float, int);
+	bool Frame(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Input> pInput, std::shared_ptr<Texture> pTexture, float fFrameTime, int iFPS);
 
 private:
-	void HandleMovementInput(Input*, float);
-	bool Render(D3DManager*, ShaderManager*, Texture* texture);
-	bool RenderDeferred(D3DManager*, ShaderManager*, Texture* texture);
-	bool RenderWindow(D3DManager*, ShaderManager*, Texture* texture);
-	void TestIntersection(D3DManager*, Camera*, int, int);
-	bool RaySphereIntersect(XMFLOAT3, XMFLOAT3, float);
+	void HandleMovementInput(std::shared_ptr<Input> pInput, float fFrameTime);
+	bool Render(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture);
+	bool RenderDeferred(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture);
+	bool RenderWindow(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture);
 
 private:
 	std::shared_ptr<Camera>			 m_pCamera;
 	std::shared_ptr<DeferredShader>  m_pDeferredShader;
-
 	std::shared_ptr<DeferredBuffers> m_pDeferredBuffers;
 	std::shared_ptr<Model>			 m_pModel;
 	std::shared_ptr<OrthoWindow>	 m_pFullScreenWindow;
@@ -54,7 +48,6 @@ private:
 
 	bool m_bDisplayUI, m_bWireFrame, m_bCellLines, m_bHeightLocked;
 	int m_iScreenWidth, m_iScreenHeight;
-	float m_fRotation;
 };
 
 #endif

@@ -1,19 +1,9 @@
-/////////////////////////////////////////////
-// Filename: LightShader.h
-/////////////////////////////////////////////
 #ifndef _LIGHT_SHADER_H
 #define _LIGHT_SHADER_H
 
-//////////
-// INCLUDES //
-//////////
+// INCLUDES 
 #include "../framework/ApePCH.h"
-#include <fstream>
-
 using namespace DirectX;
-using namespace std;
-
-
 
 ///////////////////
 // Class name: LightShader //

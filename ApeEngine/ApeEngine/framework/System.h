@@ -1,10 +1,8 @@
 #ifndef _SYSTEM_H
 #define _SYSTEM_H
 
-// PCH
+// INCLUDES 
 #include "ApePCH.h"
-
-// CLASS INCLUDES 
 #include "Application.h"
 
 ///////////////////

@@ -24,7 +24,6 @@ class FramesPerSec
 {
 public:
 	FramesPerSec();
-	FramesPerSec(const FramesPerSec&);
 	~FramesPerSec();
 
 	void Frame();

@@ -2,14 +2,9 @@
 #define _DEFERRED_SHADER_H
 
 // INCLUDES
-#include <d3d11_2.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <fstream>
 #include "../framework/ApePCH.h"
-using namespace DirectX;
-using namespace std;
 
+using namespace DirectX;
 
 ///////////////////
 // Class name: DeferredShader //

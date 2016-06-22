@@ -18,7 +18,6 @@ class Timer
 {
 public:
 	Timer();
-	Timer(const Timer&);
 	~Timer();
 
 	void Frame();

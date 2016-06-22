@@ -19,10 +19,6 @@ Timer::Timer()
 	QueryPerformanceCounter((LARGE_INTEGER*)&m_startTime);
 }
 
-Timer::Timer(const Timer& other)
-{
-}
-
 Timer::~Timer()
 {
 }

@@ -1,6 +1,3 @@
-/////////////////////////////////////////////
-// Filename: FramesPerSec.cpp
-/////////////////////////////////////////////
 #include "FramesPerSec.h"
 
 FramesPerSec::FramesPerSec()
@@ -8,11 +5,6 @@ FramesPerSec::FramesPerSec()
 	, m_count(0)
 {
 	m_startTime = timeGetTime();
-}
-
-FramesPerSec::FramesPerSec(const FramesPerSec& other)
-{
-
 }
 
 FramesPerSec::~FramesPerSec()
