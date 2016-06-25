@@ -29,7 +29,7 @@
 
 // STL
 #include <locale>
-#include <codecvt>	
+#include <codecvt>
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -66,7 +66,6 @@ namespace fs = boost::filesystem;
 #include <boost\archive\xml_wiarchive.hpp>
 #include <boost\archive\xml_woarchive.hpp>
 #include <boost\serialization\vector.hpp>
-
 
 inline void ReportErrorAndThrow(const std::string& file, int line, const std::string& function, const std::string& message)
 {
@@ -114,7 +113,6 @@ inline void SafeDeleteArray(T& ptr)
 		ptr = NULL;
 	}
 }
-
 
 // Convert a multi-byte character string (UTF-8) to a wide (UTF-16) encoded string.
 inline std::wstring ConvertString(const std::string& string)
@@ -165,5 +163,5 @@ inline std::string ConvertString(const std::wstring& wstring)
 #include <FreeImage.h>
 #define FREEIMAGE_LIB  // Static linking
 
-//#pragma comment(lib, "FreeImageLib.lib")
+//#pragma comment(lib, "FreeImage.lib")
 #endif

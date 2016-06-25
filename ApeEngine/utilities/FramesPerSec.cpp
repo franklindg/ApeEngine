@@ -10,13 +10,12 @@ FramesPerSec::FramesPerSec()
 
 FramesPerSec::~FramesPerSec()
 {
-
 }
 
 void FramesPerSec::Frame()
 {
 	m_count++;
-	
+
 	if (timeGetTime() >= (m_startTime + 1000))
 	{
 		m_fps = m_count;

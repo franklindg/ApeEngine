@@ -28,8 +28,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdLine,
 class DataSetter
 {
 public:
-	DataSetter(){}
-	~DataSetter(){}
+	DataSetter() {}
+	~DataSetter() {}
 
 	typedef std::vector<uint8_t> BufferType;
 	BufferType m_Data;
@@ -56,7 +56,7 @@ int main()
 	FloatTypes* floats = new FloatTypes();
 
 	DataSetter* dataSetting = new DataSetter;
-	
+
 	uint8_t a = 3;
 	uint8_t b = 5;
 	uint8_t c = 29;
@@ -92,6 +92,5 @@ void DataSetter::SetData(void* data, size_t elementSize, size_t offset, size_t n
 float DataSetter::GetData() const
 {
 	return 1.0f;
-
 }
 #endif

@@ -185,7 +185,7 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 
 	// Now go through all the display modes and find the one that matches the screen width and height.
 	// When a match is found store the numerator and denominator of the refresh rate for that monitor.
-	for (i = 0; i<numModes; i++)
+	for (i = 0; i < numModes; i++)
 	{
 		if (displayModeList[i].Width == (unsigned int)screenWidth)
 		{
@@ -237,7 +237,7 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	swapChainDesc.BufferCount = 1;
 
 	// Set the width and height of the back buffer.
-	swapChainDesc.BufferDesc.Width  = screenWidth;
+	swapChainDesc.BufferDesc.Width = screenWidth;
 	swapChainDesc.BufferDesc.Height = screenHeight;
 
 	// Set regular 32-bit surface for the back buffer.
@@ -246,12 +246,12 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	// Set the refresh rate of the back buffer.
 	if (m_vsync_enabled)
 	{
-		swapChainDesc.BufferDesc.RefreshRate.Numerator   = numerator;
+		swapChainDesc.BufferDesc.RefreshRate.Numerator = numerator;
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = denominator;
 	}
 	else
 	{
-		swapChainDesc.BufferDesc.RefreshRate.Numerator   = 0;
+		swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 	}
 
@@ -295,7 +295,7 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	{
 		return false;
 	}
-	
+
 	// Get the pointer to the back buffer.
 	result = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr);
 	if (FAILED(result))
@@ -309,7 +309,7 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	{
 		return false;
 	}
-	
+
 	// Release pointer to the back buffer as we no longer need it.
 	backBufferPtr.Reset();
 	backBufferPtr = nullptr;
@@ -318,17 +318,17 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
 
 	// Set up the description of the depth buffer.
-	depthBufferDesc.Width			   = screenWidth;
-	depthBufferDesc.Height			   = screenHeight;
-	depthBufferDesc.MipLevels		   = 1;
-	depthBufferDesc.ArraySize		   = 1;
-	depthBufferDesc.Format			   = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depthBufferDesc.SampleDesc.Count   = 1;
+	depthBufferDesc.Width = screenWidth;
+	depthBufferDesc.Height = screenHeight;
+	depthBufferDesc.MipLevels = 1;
+	depthBufferDesc.ArraySize = 1;
+	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthBufferDesc.SampleDesc.Count = 1;
 	depthBufferDesc.SampleDesc.Quality = 0;
-	depthBufferDesc.Usage			   = D3D11_USAGE_DEFAULT;
-	depthBufferDesc.BindFlags		   = D3D11_BIND_DEPTH_STENCIL;
-	depthBufferDesc.CPUAccessFlags     = 0;
-	depthBufferDesc.MiscFlags		   = 0;
+	depthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthBufferDesc.CPUAccessFlags = 0;
+	depthBufferDesc.MiscFlags = 0;
 
 	// Create the texture for the depth buffer using the filled out description.
 	result = m_device->CreateTexture2D(&depthBufferDesc, NULL, &m_depthStencilBuffer);
@@ -341,25 +341,25 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
 
 	// Set up the description of the stencil state.
-	depthStencilDesc.DepthEnable				  = true;
-	depthStencilDesc.DepthWriteMask				  = D3D11_DEPTH_WRITE_MASK_ALL;
-	depthStencilDesc.DepthFunc					  = D3D11_COMPARISON_LESS;
+	depthStencilDesc.DepthEnable = true;
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
-	depthStencilDesc.StencilEnable				  = true;
-	depthStencilDesc.StencilReadMask			  = 0xFF;
-	depthStencilDesc.StencilWriteMask			  = 0xFF;
+	depthStencilDesc.StencilEnable = true;
+	depthStencilDesc.StencilReadMask = 0xFF;
+	depthStencilDesc.StencilWriteMask = 0xFF;
 
 	// Stencil operations if pixel is front-facing.
-	depthStencilDesc.FrontFace.StencilFailOp	  = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-	depthStencilDesc.FrontFace.StencilPassOp	  = D3D11_STENCIL_OP_KEEP;
-	depthStencilDesc.FrontFace.StencilFunc		  = D3D11_COMPARISON_ALWAYS;
+	depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 	// Stencil operations if pixel is back-facing.
-	depthStencilDesc.BackFace.StencilFailOp		  = D3D11_STENCIL_OP_KEEP;
-	depthStencilDesc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_DECR;
-	depthStencilDesc.BackFace.StencilPassOp		  = D3D11_STENCIL_OP_KEEP;
-	depthStencilDesc.BackFace.StencilFunc		  = D3D11_COMPARISON_ALWAYS;
+	depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 	// Create the depth stencil state.
 	result = m_device->CreateDepthStencilState(&depthStencilDesc, &m_depthStencilState);
@@ -439,8 +439,8 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	}
 
 	// Setup the viewport for rendering.
-	m_viewport.Width	= (float)screenWidth;
-	m_viewport.Height	= (float)screenHeight;
+	m_viewport.Width = (float)screenWidth;
+	m_viewport.Height = (float)screenHeight;
 	m_viewport.MinDepth = 0.0f;
 	m_viewport.MaxDepth = 1.0f;
 	m_viewport.TopLeftX = 0.0f;
@@ -472,16 +472,16 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	depthDisabledStencilDesc.StencilWriteMask = 0xFF;
 
 	// Stencil operations if pixel is front-facing.
-	depthDisabledStencilDesc.FrontFace.StencilFailOp	  = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depthDisabledStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-	depthDisabledStencilDesc.FrontFace.StencilPassOp	  = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.FrontFace.StencilFunc		  = D3D11_COMPARISON_ALWAYS;
+	depthDisabledStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 	// Stencil operations if pixel is back-facing.
-	depthDisabledStencilDesc.BackFace.StencilFailOp		  = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_DECR;
-	depthDisabledStencilDesc.BackFace.StencilPassOp		  = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.BackFace.StencilFunc		  = D3D11_COMPARISON_ALWAYS;
+	depthDisabledStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depthDisabledStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
 	// Create the state using the device.
 	result = m_device->CreateDepthStencilState(&depthDisabledStencilDesc, &m_depthDisabledStencilState);
@@ -489,18 +489,18 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	{
 		return false;
 	}
-	
+
 	// Clear the blend state description.
 	ZeroMemory(&blendStateDesc, sizeof(D3D11_BLEND_DESC));
 
 	// Create an alpha enabled blend state description.
-	blendStateDesc.RenderTarget[0].BlendEnable	  = TRUE;
-	blendStateDesc.RenderTarget[0].SrcBlend		  = D3D11_BLEND_ONE;
-	blendStateDesc.RenderTarget[0].DestBlend	  = D3D11_BLEND_INV_SRC_ALPHA;
-	blendStateDesc.RenderTarget[0].BlendOp		  = D3D11_BLEND_OP_ADD;
-	blendStateDesc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_ONE;
+	blendStateDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendStateDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blendStateDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendStateDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 	blendStateDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	blendStateDesc.RenderTarget[0].BlendOpAlpha	  = D3D11_BLEND_OP_ADD;
+	blendStateDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 	blendStateDesc.RenderTarget[0].RenderTargetWriteMask = 0x0f;
 
 	// Create the blend state using the description.
@@ -521,14 +521,14 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	}
 
 	// Create a blend state description for the alpha-to-coverage blending mode.
-	blendStateDesc.AlphaToCoverageEnable		  = true;
-	blendStateDesc.IndependentBlendEnable         = false;
-	blendStateDesc.RenderTarget[0].BlendEnable	  = true;
-	blendStateDesc.RenderTarget[0].BlendOp		  = D3D11_BLEND_OP_ADD;
-	blendStateDesc.RenderTarget[0].BlendOpAlpha   = D3D11_BLEND_OP_ADD;
-	blendStateDesc.RenderTarget[0].SrcBlend		  = D3D11_BLEND_ONE;
-	blendStateDesc.RenderTarget[0].DestBlend	  = D3D11_BLEND_INV_SRC_ALPHA;
-	blendStateDesc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_ONE;
+	blendStateDesc.AlphaToCoverageEnable = true;
+	blendStateDesc.IndependentBlendEnable = false;
+	blendStateDesc.RenderTarget[0].BlendEnable = true;
+	blendStateDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendStateDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendStateDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blendStateDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendStateDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 	blendStateDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 	blendStateDesc.RenderTarget[0].RenderTargetWriteMask = 0x0f;
 
@@ -538,7 +538,6 @@ bool D3DManager::Initialize(int screenWidth, int screenHeight, bool vsync, HWND 
 	{
 		return false;
 	}
-
 
 	return true;
 }
@@ -630,7 +629,6 @@ void D3DManager::TurnAlphaBlendingOn()
 {
 	float blendFactor[4];
 
-
 	// Setup the blend factor.
 	blendFactor[0] = 0.0f;
 	blendFactor[1] = 0.0f;
@@ -646,7 +644,6 @@ void D3DManager::TurnAlphaBlendingOn()
 void D3DManager::TurnAlphaBlendingOff()
 {
 	float blendFactor[4];
-
 
 	// Setup the blend factor.
 	blendFactor[0] = 0.0f;
@@ -668,7 +665,6 @@ void D3DManager::TurnOnCulling()
 	return;
 }
 
-
 void D3DManager::TurnOffCulling()
 {
 	// Set the no back face culling rasterizer state.
@@ -677,11 +673,9 @@ void D3DManager::TurnOffCulling()
 	return;
 }
 
-
 void D3DManager::EnableAlphaToCoverageBlending()
 {
 	float blendFactor[4];
-
 
 	// Setup the blend factor.
 	blendFactor[0] = 0.0f;

@@ -35,15 +35,14 @@ bool Model::InitializeBuffers(const char* filename)
 {
 	Assimp::Importer imp;
 	const aiScene* pScene = imp.ReadFile(filename,
-		aiProcess_CalcTangentSpace		|
-		aiProcess_Triangulate			|
-		aiProcess_GenSmoothNormals		|
-		aiProcess_SplitLargeMeshes		|
-		aiProcess_ConvertToLeftHanded	|
-		aiProcess_SortByPType			|
+		aiProcess_CalcTangentSpace |
+		aiProcess_Triangulate |
+		aiProcess_GenSmoothNormals |
+		aiProcess_SplitLargeMeshes |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_SortByPType |
 		aiProcess_PreTransformVertices);
 
-	
 	UINT NumMeshes = pScene->mNumMeshes;
 	std::vector<VertexType> vertices;
 	std::vector<DWORD> indices;
@@ -87,7 +86,7 @@ bool Model::InitializeBuffers(const char* filename)
 	vbd.CPUAccessFlags = 0;
 	vbd.MiscFlags = 0;
 	vbd.StructureByteStride = 0;
-	
+
 	D3D11_SUBRESOURCE_DATA vInitData;
 	vInitData.pSysMem = vertices.data();
 	vInitData.SysMemPitch = 0;

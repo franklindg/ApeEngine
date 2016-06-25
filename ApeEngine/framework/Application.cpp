@@ -36,11 +36,11 @@ Application::~Application()
 }
 
 bool Application::Frame()
-{	
+{
 	m_Fps->Frame();
 	m_Timer->Frame();
 
-	if(!m_Input->Frame())
+	if (!m_Input->Frame())
 		return false;
 
 	if (m_Input->IsEscapePressed() == true)

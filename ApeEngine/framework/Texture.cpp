@@ -166,7 +166,7 @@ bool Texture::LoadTexture(const char* filename)
 	textures.uiTextureHeight = FreeImage_GetHeight(dib);
 	textures.uiTextureWidth = FreeImage_GetWidth(dib);
 	textures.uiPitch = FreeImage_GetPitch(dib);
-	
+
 	// Sets the 2D texture description with the bitmap data,
 	// and creates and empty 2D texture.
 	/* TODO: Add multiple file type functionality. */

@@ -7,7 +7,7 @@ Position::Position()
 	m_positionY = 0.0f;
 	m_positionZ = 0.0f;
 
-	m_rotationX = 0.0f; 
+	m_rotationX = 0.0f;
 	m_rotationY = 0.0f;
 	m_rotationZ = 0.0f;
 
@@ -27,7 +27,6 @@ Position::Position()
 
 Position::~Position()
 {
-
 }
 
 void Position::SetPosition(float x, float y, float z)

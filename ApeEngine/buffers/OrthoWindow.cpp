@@ -19,21 +19,19 @@ OrthoWindow::~OrthoWindow()
 	ShutdownBuffers();
 }
 
-void OrthoWindow::Render(ID3D11DeviceContext* deviceContext)
+void OrthoWindow::Render(ID3D11DeviceContext* pDeviceContext)
 {
 	RenderBuffers();
 
 	return;
 }
 
-
 int OrthoWindow::GetIndexCount()
 {
 	return m_iIndexCount;
 }
 
-
-bool OrthoWindow::InitializeBuffers(int windowWidth, int windowHeight)
+bool OrthoWindow::InitializeBuffers(int iWindowWidth, int iWindowHeight)
 {
 	float left, right, top, bottom;
 	VertexType* vertices;
@@ -43,38 +41,26 @@ bool OrthoWindow::InitializeBuffers(int windowWidth, int windowHeight)
 	HRESULT result;
 	int i;
 
-
 	// Calculate the screen coordinates of the left side of the window.
-	left = (float)((windowWidth / 2) * -1);
+	left = (float)((iWindowWidth / 2) * -1);
 
 	// Calculate the screen coordinates of the right side of the window.
-	right = left + (float)windowWidth;
+	right = left + (float)iWindowWidth;
 
 	// Calculate the screen coordinates of the top of the window.
-	top = (float)(windowHeight / 2);
+	top = (float)(iWindowHeight / 2);
 
 	// Calculate the screen coordinates of the bottom of the window.
-	bottom = top - (float)windowHeight;
+	bottom = top - (float)iWindowHeight;
 
-	// Set the number of vertices in the vertex array.
 	m_iVertexCount = 6;
-
-	// Set the number of indices in the index array.
 	m_iIndexCount = m_iVertexCount;
 
-	// Create the vertex array.
 	vertices = new VertexType[m_iVertexCount];
-	if (!vertices)
-	{
-		return false;
-	}
+	if (!vertices) { return false; }
 
-	// Create the index array.
 	indices = new unsigned long[m_iIndexCount];
-	if (!indices)
-	{
-		return false;
-	}
+	if (!indices) { return false; }
 
 	// Load the vertex array with data.
 	// First triangle.
@@ -98,7 +84,7 @@ bool OrthoWindow::InitializeBuffers(int windowWidth, int windowHeight)
 	vertices[5].texture = DirectX::XMFLOAT2(1.0f, 1.0f);
 
 	// Load the index array with data.
-	for (i = 0; i<m_iIndexCount; i++)
+	for (i = 0; i < m_iIndexCount; i++)
 	{
 		indices[i] = i;
 	}
@@ -153,7 +139,6 @@ bool OrthoWindow::InitializeBuffers(int windowWidth, int windowHeight)
 	return true;
 }
 
-
 void OrthoWindow::ShutdownBuffers()
 {
 	m_pDevice.Reset();
@@ -162,12 +147,10 @@ void OrthoWindow::ShutdownBuffers()
 	m_pVertexBuffer->Release();
 }
 
-
 void OrthoWindow::RenderBuffers()
 {
 	unsigned int stride;
 	unsigned int offset;
-
 
 	// Set vertex buffer stride and offset.
 	stride = sizeof(VertexType);

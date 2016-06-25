@@ -67,7 +67,7 @@ bool Scene::Frame(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Input
 	HandleMovementInput(pInput, fFrameTime);
 	m_pPosition->GetPosition(posX, posY, posZ);
 	m_pPosition->GetRotation(rotX, rotY, rotZ);
-	
+
 	// Updates the scene.
 	if (!Render(pD3DManager, pTexture))
 	{
@@ -87,31 +87,31 @@ void Scene::HandleMovementInput(std::shared_ptr<Input> pInput, float fFrameTime)
 	// User movement input
 	keyDown = pInput->IsAPressed();		// A - Key
 	m_pPosition->MoveLeft(keyDown);		// Move Left
-										
+
 	keyDown = pInput->IsDPressed();		// D - Key
 	m_pPosition->MoveRight(keyDown);	// Move Right
-										
+
 	keyDown = pInput->IsWPressed();		// W - Key
 	m_pPosition->MoveForward(keyDown);	//  Move Forward
-										
+
 	keyDown = pInput->IsSPressed();		// S - Key
 	m_pPosition->MoveBackward(keyDown);	// Move Backward
-										
+
 	keyDown = pInput->IsRightPressed();	// Right Arrow - Key
 	m_pPosition->TurnRight(keyDown);	// Turn Right
-										
+
 	keyDown = pInput->IsLeftPressed();	// Left Arrow - Key
 	m_pPosition->TurnLeft(keyDown);		// Turn Left
-										
+
 	keyDown = pInput->IsUpPressed();		// Up Arrow - Key
 	m_pPosition->MoveUpward(keyDown);	// Move Up
-										
+
 	keyDown = pInput->IsDownPressed();	// Down Arrow - Key
 	m_pPosition->MoveDownward(keyDown);	// Move Down
-										
+
 	keyDown = pInput->IsPgUpPressed();	// PgUp - Key
 	m_pPosition->LookUpward(keyDown);	// Look Up
-										
+
 	keyDown = pInput->IsPgDownPressed();	// PgDown - Key
 	m_pPosition->LookDownward(keyDown);	// Look Down
 
@@ -124,38 +124,38 @@ void Scene::HandleMovementInput(std::shared_ptr<Input> pInput, float fFrameTime)
 	m_pCamera->SetRotation(rotX, rotY, rotZ);
 
 	// Interface Toggles
-	if (pInput->IsF1Toggled())				 
+	if (pInput->IsF1Toggled())
 	{								  // F1 - Key
 		m_bDisplayUI = !m_bDisplayUI; // Toggle User Interface
-	}								
+	}
 
-	if (pInput->IsF2Toggled())		
+	if (pInput->IsF2Toggled())
 	{								  // F2 - Key
 		m_bWireFrame = !m_bWireFrame; // Toggle WireFrame
-	}								
-									
-	if (pInput->IsF3Toggled())		
+	}
+
+	if (pInput->IsF3Toggled())
 	{								  // F3 - Key
 		m_bCellLines = !m_bCellLines; // Toggle Cell Lines
 	}
-											
-	if (pInput->IsF4Toggled())				
+
+	if (pInput->IsF4Toggled())
 	{										// F4 - Key
 		m_bHeightLocked = !m_bHeightLocked;	// Toggle HeightLock
-	}										 
+	}
 }
 
 bool Scene::Render(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture)
-{	
-	if(!RenderDeferred(pD3DManager, pTexture))
+{
+	if (!RenderDeferred(pD3DManager, pTexture))
 	{
 		return false;
 	}
-	if(!RenderWindow(pD3DManager, pTexture))
+	if (!RenderWindow(pD3DManager, pTexture))
 	{
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -176,7 +176,7 @@ bool Scene::RenderDeferred(std::shared_ptr<D3DManager> pD3DManager, std::shared_
 	m_pCamera->Render();
 
 	// Renders the models buffer.
-	m_pModel->Render();	
+	m_pModel->Render();
 
 	// Renders the deferred shader.
 	if (!m_pDeferredShader->Render(m_pModel->GetIndexCount(),
@@ -190,7 +190,7 @@ bool Scene::RenderDeferred(std::shared_ptr<D3DManager> pD3DManager, std::shared_
 	// Resets the back buffer and view-port.
 	pD3DManager->SetBackBufferRenderTarget();
 	pD3DManager->ResetViewport();
-	
+
 	return true;
 }
 

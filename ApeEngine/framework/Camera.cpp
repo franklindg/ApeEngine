@@ -8,11 +8,11 @@ Camera::Camera()
 	, m_rotationX(0.0f)
 	, m_rotationY(0.0f)
 	, m_rotationZ(0.0f)
-{}
+{
+}
 
 Camera::~Camera()
 {
-
 }
 
 void Camera::SetPosition(float x, float y, float z)
@@ -47,7 +47,6 @@ void Camera::Render()
 	DirectX::XMVECTOR upVector, positionVector, lookAtVector;
 	float yaw, pitch, roll;
 	DirectX::XMMATRIX rotationMatrix;
-
 
 	up.x = 0.0f;
 	up.y = 1.0f;
@@ -104,7 +103,7 @@ void Camera::RenderBaseViewMatrix()
 	upVector = XMLoadFloat3(&up);
 
 	position.x = m_positionX;
-	position.y = m_positionY;	
+	position.y = m_positionY;
 	position.z = m_positionZ;
 
 	positionVector = XMLoadFloat3(&position);

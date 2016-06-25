@@ -35,7 +35,7 @@ private:
 
 	bool CreateShader(DeferredShader::ShaderType shaderType, WCHAR* fileName, char* entryPoint, char* targetFeature);
 	bool SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix,
-							 ID3D11ShaderResourceView* diffuseMap, ID3D11ShaderResourceView* normalMap);
+		ID3D11ShaderResourceView* diffuseMap, ID3D11ShaderResourceView* normalMap);
 	void RenderShader(UINT);
 
 	bool GetShaderInformation();
@@ -43,7 +43,7 @@ private:
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pDeviceContext;
-		
+
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_pVertexShader;
 	Microsoft::WRL::ComPtr<ID3D11HullShader> m_pHullShader;
 	Microsoft::WRL::ComPtr<ID3D11DomainShader> m_pDomainShader;

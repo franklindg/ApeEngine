@@ -15,17 +15,17 @@ Input::Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight)
 		ReportError("Failed to create input instance.");
 	}
 
-	if(FAILED(m_pDirectInput->CreateDevice(GUID_SysKeyboard, &m_pKeyboardDevice, NULL)))
+	if (FAILED(m_pDirectInput->CreateDevice(GUID_SysKeyboard, &m_pKeyboardDevice, NULL)))
 	{
 		ReportError("Failed to create input device");
 	}
 
-	if(FAILED(m_pKeyboardDevice->SetDataFormat(&c_dfDIKeyboard)))
+	if (FAILED(m_pKeyboardDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{
 		ReportError("Failed to set keyboard data format.");
 	}
 
-	if(FAILED(m_pKeyboardDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE)))
+	if (FAILED(m_pKeyboardDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE)))
 	{
 		ReportError("Failed to set keyboard cooperative level.");
 	}
@@ -35,24 +35,22 @@ Input::Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight)
 		ReportError("Failed to acquire keyboard.");
 	}
 
-	if(FAILED(m_pDirectInput->CreateDevice(GUID_SysMouse, &m_pMouseDevice, NULL)))
+	if (FAILED(m_pDirectInput->CreateDevice(GUID_SysMouse, &m_pMouseDevice, NULL)))
 	{
 		ReportError("Failed to create mouse device");
 	}
 
-	if(FAILED(m_pMouseDevice->SetDataFormat(&c_dfDIMouse)))
+	if (FAILED(m_pMouseDevice->SetDataFormat(&c_dfDIMouse)))
 	{
 		ReportError("Failed to set mouse data format.");
 	}
 
-
-	if(FAILED(m_pMouseDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE)))
+	if (FAILED(m_pMouseDevice->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE)))
 	{
 		ReportError("Failed to set mouse cooperative level.");
 	}
 
-
-	if(FAILED(m_pMouseDevice->Acquire()))
+	if (FAILED(m_pMouseDevice->Acquire()))
 	{
 		ReportError("Failed to acquire mouse.");
 	}
@@ -127,7 +125,7 @@ bool Input::ReadMouse()
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 

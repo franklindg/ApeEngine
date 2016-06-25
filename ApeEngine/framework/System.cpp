@@ -64,7 +64,7 @@ bool System::Frame()
 
 LRESULT CALLBACK System::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
-		return DefWindowProc(hwnd, umsg, wparam, lparam);
+	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
 void System::InitializeWindows(int& screenWidth, int& screenHeight)
@@ -73,8 +73,7 @@ void System::InitializeWindows(int& screenWidth, int& screenHeight)
 	DEVMODE dmScreenSettings;
 	int posX, posY;
 
-
-	// Get an external pointer to this object.	
+	// Get an external pointer to this object.
 	ApplicationHandle = this;
 
 	// Get the instance of this application.
@@ -177,19 +176,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	switch (umessage)
 	{
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
-		case WM_CLOSE:
-		{
-			PostQuitMessage(0);
-			return 0;
-		}
-		default:
-		{
-			return ApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
-		}
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+		return 0;
+	}
+	case WM_CLOSE:
+	{
+		PostQuitMessage(0);
+		return 0;
+	}
+	default:
+	{
+		return ApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
+	}
 	}
 }

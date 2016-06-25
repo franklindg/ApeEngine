@@ -1,21 +1,21 @@
 #include <ApePCH.h>
 #include "DeferredBuffers.h"
 
-DeferredBuffers::DeferredBuffers(ID3D11Device* device, int textureWidth, int textureHeight, float screenDepth, float screenNear)
-	: m_pDevice(device)
-	, m_depthStencilBuffer(nullptr)
-	, m_depthStencilView(0)
-{	
+DeferredBuffers::DeferredBuffers(ID3D11Device* pDevice, int iWidth, int iHeight, float fDepth, float fNear)
+	: m_pDevice(pDevice)
+	, m_pDepthStencilBuffer(nullptr)
+	, m_pDepthStencilView(0)
+{
 	m_pDevice->GetImmediateContext(&m_pDeviceContext);
 
 	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
-		m_renderTargetTextureArray[i] = 0;
-		m_renderTargetViewArray[i]	  = 0;
-		m_shaderResourceViewArray[i]  = nullptr;
+		m_paTexture[i] = 0;
+		m_paRenderTarget[i] = 0;
+		m_paShaderResource[i] = nullptr;
 	}
 
-	Initialize(textureWidth, textureHeight, screenDepth, screenNear);
+	Initialize(iWidth, iHeight, fDepth, fNear);
 }
 
 DeferredBuffers::~DeferredBuffers()
@@ -23,36 +23,36 @@ DeferredBuffers::~DeferredBuffers()
 	m_pDevice.Reset();
 	m_pDeviceContext.Reset();
 
-	if (m_depthStencilView)
+	if (m_pDepthStencilView)
 	{
-		m_depthStencilView->Release();
-		m_depthStencilView = 0;
+		m_pDepthStencilView->Release();
+		m_pDepthStencilView = 0;
 	}
 
-	m_depthStencilBuffer.Reset();
+	m_pDepthStencilBuffer.Reset();
 
 	for (int i = 0; i < BUFFER_COUNT; i++)
 	{
-		if (m_shaderResourceViewArray[i])
+		if (m_paShaderResource[i])
 		{
-			m_shaderResourceViewArray[i].Reset();
+			m_paShaderResource[i].Reset();
 		}
 
-		if (m_renderTargetViewArray[i])
+		if (m_paRenderTarget[i])
 		{
-			m_renderTargetViewArray[i]->Release();
-			m_renderTargetViewArray[i] = 0;
+			m_paRenderTarget[i]->Release();
+			m_paRenderTarget[i] = 0;
 		}
 
-		if (m_renderTargetTextureArray[i])
+		if (m_paTexture[i])
 		{
-			m_renderTargetTextureArray[i]->Release();
-			m_renderTargetTextureArray[i] = 0;
+			m_paTexture[i]->Release();
+			m_paTexture[i] = 0;
 		}
 	}
 }
 
-bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float screenDepth, float screenNear)
+bool DeferredBuffers::Initialize(int iWidth, int iHeight, float fDepth, float fNear)
 {
 	D3D11_TEXTURE2D_DESC textureDesc;
 	HRESULT result;
@@ -62,17 +62,16 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
 	int i;
 
-
 	// Store the width and height of the render texture.
-	m_textureWidth = textureWidth;
-	m_textureHeight = textureHeight;
+	m_iWidth = iWidth;
+	m_iHeight = iHeight;
 
 	// Initialize the render target texture description.
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 	// Setup the render target texture description.
-	textureDesc.Width = textureWidth;
-	textureDesc.Height = textureHeight;
+	textureDesc.Width = iWidth;
+	textureDesc.Height = iHeight;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -83,9 +82,9 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	textureDesc.MiscFlags = 0;
 
 	// Create the render target textures.
-	for (i = 0; i<BUFFER_COUNT; i++)
+	for (i = 0; i < BUFFER_COUNT; i++)
 	{
-		result = m_pDevice->CreateTexture2D(&textureDesc, NULL, &m_renderTargetTextureArray[i]);
+		result = m_pDevice->CreateTexture2D(&textureDesc, NULL, &m_paTexture[i]);
 		if (FAILED(result))
 		{
 			return false;
@@ -96,11 +95,11 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	renderTargetViewDesc.Format = textureDesc.Format;
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
-	
+
 	// Create the render target views.
-	for (i = 0; i<BUFFER_COUNT; i++)
+	for (i = 0; i < BUFFER_COUNT; i++)
 	{
-		result = m_pDevice->CreateRenderTargetView(m_renderTargetTextureArray[i], &renderTargetViewDesc, &m_renderTargetViewArray[i]);
+		result = m_pDevice->CreateRenderTargetView(m_paTexture[i], &renderTargetViewDesc, &m_paRenderTarget[i]);
 		if (FAILED(result))
 		{
 			return false;
@@ -112,11 +111,11 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
-	
+
 	// Create the shader resource views.
-	for (i = 0; i<BUFFER_COUNT; i++)
+	for (i = 0; i < BUFFER_COUNT; i++)
 	{
-		result = m_pDevice->CreateShaderResourceView(m_renderTargetTextureArray[i], &shaderResourceViewDesc, &m_shaderResourceViewArray[i]);
+		result = m_pDevice->CreateShaderResourceView(m_paTexture[i], &shaderResourceViewDesc, &m_paShaderResource[i]);
 		if (FAILED(result))
 		{
 			return false;
@@ -127,8 +126,8 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
 
 	// Set up the description of the depth buffer.
-	depthBufferDesc.Width = textureWidth;
-	depthBufferDesc.Height = textureHeight;
+	depthBufferDesc.Width = iWidth;
+	depthBufferDesc.Height = iHeight;
 	depthBufferDesc.MipLevels = 1;
 	depthBufferDesc.ArraySize = 1;
 	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -140,7 +139,7 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	depthBufferDesc.MiscFlags = 0;
 
 	// Create the texture for the depth buffer using the filled out description.
-	result = m_pDevice->CreateTexture2D(&depthBufferDesc, NULL, &m_depthStencilBuffer);
+	result = m_pDevice->CreateTexture2D(&depthBufferDesc, NULL, &m_pDepthStencilBuffer);
 	if (FAILED(result))
 	{
 		return false;
@@ -155,27 +154,27 @@ bool DeferredBuffers::Initialize(int textureWidth, int textureHeight, float scre
 	depthStencilViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the depth stencil view.
-	result = m_pDevice->CreateDepthStencilView(m_depthStencilBuffer.Get(), &depthStencilViewDesc, &m_depthStencilView);
+	result = m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer.Get(), &depthStencilViewDesc, &m_pDepthStencilView);
 	if (FAILED(result))
 	{
 		return false;
 	}
 
 	// Setup the viewport for rendering.
-	m_viewport.Width = (float)textureWidth;
-	m_viewport.Height = (float)textureHeight;
-	m_viewport.MinDepth = 0.0f;
-	m_viewport.MaxDepth = 1.0f;
-	m_viewport.TopLeftX = 0.0f;
-	m_viewport.TopLeftY = 0.0f;
+	m_Viewport.Width = (float)iWidth;
+	m_Viewport.Height = (float)iHeight;
+	m_Viewport.MinDepth = 0.0f;
+	m_Viewport.MaxDepth = 1.0f;
+	m_Viewport.TopLeftX = 0.0f;
+	m_Viewport.TopLeftY = 0.0f;
 
 	return true;
 }
 
 void DeferredBuffers::SetRenderTargets()
 {
-	m_pDeviceContext->OMSetRenderTargets(BUFFER_COUNT, m_renderTargetViewArray, m_depthStencilView);
-	m_pDeviceContext->RSSetViewports(1, &m_viewport);
+	m_pDeviceContext->OMSetRenderTargets(BUFFER_COUNT, m_paRenderTarget, m_pDepthStencilView);
+	m_pDeviceContext->RSSetViewports(1, &m_Viewport);
 	return;
 }
 
@@ -184,25 +183,22 @@ void DeferredBuffers::ClearRenderTargets(float red, float green, float blue, flo
 	float color[4];
 	int i;
 
-
 	color[0] = red;
 	color[1] = green;
 	color[2] = blue;
 	color[3] = alpha;
 
-
-	for (i = 0; i<BUFFER_COUNT; i++)
+	for (i = 0; i < BUFFER_COUNT; i++)
 	{
-		m_pDeviceContext->ClearRenderTargetView(m_renderTargetViewArray[i], color);
+		m_pDeviceContext->ClearRenderTargetView(m_paRenderTarget[i], color);
 	}
 
-
-	m_pDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 	return;
 }
 
 ID3D11ShaderResourceView* DeferredBuffers::GetShaderResourceView(int view)
 {
-	return m_shaderResourceViewArray[view].Get();
+	return m_paShaderResource[view].Get();
 }

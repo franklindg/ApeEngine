@@ -1,15 +1,12 @@
 #include <ApePCH.h>
 #include "Light.h"
 
-
 Light::Light()
 {
-
 }
 
 Light::~Light()
 {
-
 }
 
 void Light::SetAmbientColor(float red, float green, float blue, float alpha)
@@ -35,7 +32,6 @@ void Light::SetSpecularColor(float red, float green, float blue, float alpha)
 	m_specularColor = DirectX::XMFLOAT4(red, green, blue, alpha);
 	return;
 }
-
 
 void Light::SetSpecularPower(float power)
 {

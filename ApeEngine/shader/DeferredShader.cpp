@@ -101,7 +101,7 @@ DeferredShader::~DeferredShader()
 }
 
 bool DeferredShader::Render(UINT indexCount, DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix,
-							ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
+	ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
 {
 	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap))
 		return false;
@@ -117,7 +117,6 @@ void DeferredShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd,
 	unsigned long bufferSize, i;
 	std::ofstream fout;
 
-
 	// Get a pointer to the error message text buffer.
 	compileErrors = (char*)(errorMessage->GetBufferPointer());
 
@@ -128,7 +127,7 @@ void DeferredShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd,
 	fout.open("data/shaders/shader-error.txt");
 
 	// Write out the error message.
-	for (i = 0; i<bufferSize; i++)
+	for (i = 0; i < bufferSize; i++)
 	{
 		fout << compileErrors[i];
 	}
@@ -173,7 +172,7 @@ bool DeferredShader::CreateShader(DeferredShader::ShaderType shaderType, WCHAR* 
 		hr = m_pDevice->CreateVertexShader(m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), NULL, &m_pVertexShader);
 		D3DReflect(m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), IID_ID3D11ShaderReflection, &m_pReflection);
 	}
-		break;
+	break;
 	case DeferredShader::PixelShader:
 		hr = m_pDevice->CreatePixelShader(m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), NULL, &m_pPixelShader);
 		break;
@@ -211,7 +210,7 @@ bool DeferredShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX
 	{
 		return false;
 	}
-	
+
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
 
 	dataPtr->World = WorldMatrix;
@@ -226,8 +225,6 @@ bool DeferredShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX
 	// Now set the constant buffer in the vertex shader with the updated values.
 	m_pDeviceContext->VSSetConstantBuffers(bufferNumber, 1, pBuffers);
 
-	
-
 	// Set shader texture resource in the pixel shader.
 	m_pDeviceContext->PSSetShaderResources(0, 1, &texture);
 	m_pDeviceContext->PSSetShaderResources(1, 1, &normalMap);
@@ -239,7 +236,7 @@ bool DeferredShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX
 	}
 
 	dataPtr2 = (MaterialBufferType*)mappedResource.pData;
-	
+
 	dataPtr2->specularAlbedo = specAlbedo;
 	dataPtr2->specularPower = specPower;
 
@@ -282,7 +279,7 @@ bool DeferredShader::GetShaderInformation()
 		MessageBox(NULL, L"Failed to get the shader reflection description.", L"Error", MB_OK);
 		return false;
 	}
-	
+
 	// Gets the input elements from the reflection description,
 	// and stores them in the input element description.
 	for (UINT i = 0; i < reflectDesc.InputParameters; i++)
@@ -304,7 +301,7 @@ bool DeferredShader::GetShaderInformation()
 	}
 
 	// Creates the vertex input layout.
-	hr = m_pDevice->CreateInputLayout(&inputElements[0], (UINT)inputElements.size(), m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(),	&m_pLayout);
+	hr = m_pDevice->CreateInputLayout(&inputElements[0], (UINT)inputElements.size(), m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), &m_pLayout);
 	if (FAILED(hr))
 	{
 		return false;

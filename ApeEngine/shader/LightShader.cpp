@@ -68,7 +68,7 @@ bool LightShader::InitializeShader(HWND hwnd, WCHAR* vsFilename, WCHAR* psFilena
 
 	// Compile the vertex shader code.
 	result = D3DCompileFromFile(vsFilename, NULL, NULL, "LightVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
-								&vertexShaderBuffer, &errorMessage);
+		&vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have written something to the error message.
@@ -141,7 +141,7 @@ bool LightShader::InitializeShader(HWND hwnd, WCHAR* vsFilename, WCHAR* psFilena
 
 	// Create the vertex input layout.
 	result = m_pDevice->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(),
-									   &m_layout);
+		&m_layout);
 	if (FAILED(result))
 	{
 		return false;
@@ -155,20 +155,20 @@ bool LightShader::InitializeShader(HWND hwnd, WCHAR* vsFilename, WCHAR* psFilena
 	pixelShaderBuffer = 0;
 
 	// Create a texture sampler state description.
-	samplerDesc.Filter		   = D3D11_FILTER_MIN_MAG_MIP_POINT;
-	samplerDesc.AddressU	   = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressV	   = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressW	   = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.MipLODBias	   = 0.0f;
-	samplerDesc.MaxAnisotropy  = 1;
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.MipLODBias = 0.0f;
+	samplerDesc.MaxAnisotropy = 1;
 	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 	samplerDesc.BorderColor[0] = 0;
 	samplerDesc.BorderColor[1] = 0;
 	samplerDesc.BorderColor[2] = 0;
 	samplerDesc.BorderColor[3] = 0;
-	samplerDesc.MinLOD		   = 0;
-	samplerDesc.MaxLOD		   = D3D11_FLOAT32_MAX;
-	
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
 	// Create the texture sampler state.
 	result = m_pDevice->CreateSamplerState(&samplerDesc, &m_sampleState);
 	if (FAILED(result))
@@ -198,7 +198,7 @@ bool LightShader::InitializeShader(HWND hwnd, WCHAR* vsFilename, WCHAR* psFilena
 	cameraBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	cameraBufferDesc.MiscFlags = 0;
 	cameraBufferDesc.StructureByteStride = 0;
-	
+
 	// Create the camera constant buffer pointer so we can access the vertex shader constant buffer from within this class.
 	result = m_pDevice->CreateBuffer(&cameraBufferDesc, NULL, &m_cameraBuffer);
 	if (FAILED(result))
@@ -241,7 +241,7 @@ void LightShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd, WC
 	fout.open("data/shaders/shader-error.txt");
 
 	// Write out the error message.
-	for (i = 0; i<bufferSize; i++)
+	for (i = 0; i < bufferSize; i++)
 	{
 		fout << compileErrors[i];
 	}
@@ -291,7 +291,7 @@ bool LightShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::C
 	m_pDeviceContext->PSSetShaderResources(1, 1, &diffuseAlbedo);
 	m_pDeviceContext->PSSetShaderResources(2, 1, &specularAlbedo);
 	m_pDeviceContext->PSSetShaderResources(3, 1, &position);
-	
+
 	// Lock the camera constant buffer so it can be written to.
 	if (FAILED(m_pDeviceContext->Map(m_cameraBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))
 	{
