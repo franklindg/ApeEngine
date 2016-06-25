@@ -17,9 +17,7 @@
 #include "../shader/DeferredShader.h"
 #include "../shader/LightShader.h"
 
-///////////////////
-// Class name: Scene //
-///////////////////
+
 class Scene
 {
 public:

@@ -1,4 +1,18 @@
-﻿  Skipping... (no relevant changes detected)
-  FramesPerSec.cpp
+﻿  Timer.cpp
+  LightShader.cpp
+  DeferredShader.cpp
+  main.cpp
+  Texture.cpp
+  System.cpp
+  Scene.cpp
+  Model.cpp
+  Input.cpp
+  D3DManager.cpp
+  Application.cpp
+  ApePCH.cpp
+  OrthoWindow.cpp
+  DeferredBuffers.cpp
+  Generating Code...
+  LINK : C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\bin\Debug\ApeEngine - core.exe not found or not built by the last incremental link; performing full link
   ApeEngine - core.vcxproj -> C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\bin\Debug\ApeEngine - core.exe
   ApeEngine - core.vcxproj -> C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\bin\Debug\ApeEngine - core.pdb (Partial PDB)
