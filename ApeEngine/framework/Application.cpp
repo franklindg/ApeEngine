@@ -1,5 +1,11 @@
 #include <ApePCH.h>
 #include "Application.h"
+#include "Input.h"
+#include "D3DManager.h"
+#include "Texture.h"
+#include "../utilities/Timer.h"
+#include "../utilities/FramesPerSec.h"
+#include "Scene.h"
 
 Application::Application(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)
 	: m_Input(nullptr)

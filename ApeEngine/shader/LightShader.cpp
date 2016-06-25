@@ -35,9 +35,9 @@ LightShader::~LightShader()
 	m_vertexShader.Reset();
 }
 
-bool LightShader::Render(int indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
-	CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
-	ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, XMFLOAT3 cameraPosition, XMFLOAT3 lightDirection)
+bool LightShader::Render(int indexCount, DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix,
+	DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
+	ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, DirectX::XMFLOAT3 cameraPosition, DirectX::XMFLOAT3 lightDirection)
 {
 	// Sets the shader parameters that it will use for rendering.
 	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, normal, diffuseAlbedo, specularAlbedo,
@@ -257,18 +257,18 @@ void LightShader::OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd, WC
 	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message.", shaderFilename, MB_OK);
 }
 
-bool LightShader::SetShaderParameters(CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
-	CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
-	ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, XMFLOAT3 cameraPos, XMFLOAT3 alightDirection)
+bool LightShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix,
+	DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
+	ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, DirectX::XMFLOAT3 cameraPos, DirectX::XMFLOAT3 alightDirection)
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferType* dataPtr;
 	LightBufferType* dataPtr2;
 	CameraBufferType* dataPtr3;
 
-	XMMATRIX WorldMatrix = XMMatrixTranspose(worldMatrix);
-	XMMATRIX WorldViewMatrix = XMMatrixTranspose(XMMatrixMultiply(worldMatrix, viewMatrix));
-	XMMATRIX WorldViewProjectionMatrix = XMMatrixTranspose(XMMatrixMultiply(XMMatrixMultiply(worldMatrix, viewMatrix), projectionMatrix));
+	DirectX::XMMATRIX WorldMatrix = XMMatrixTranspose(worldMatrix);
+	DirectX::XMMATRIX WorldViewMatrix = XMMatrixTranspose(XMMatrixMultiply(worldMatrix, viewMatrix));
+	DirectX::XMMATRIX WorldViewProjectionMatrix = XMMatrixTranspose(XMMatrixMultiply(XMMatrixMultiply(worldMatrix, viewMatrix), projectionMatrix));
 
 	// Lock the constant buffer so it can be written to.
 	if (FAILED(m_pDeviceContext->Map(m_matrixBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))

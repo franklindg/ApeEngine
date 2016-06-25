@@ -1,19 +1,13 @@
 #ifndef _ORTHO_WINDOW_H_
 #define _ORTHO_WINDOW_H_
 
-using namespace DirectX;
-
-
-///////////////////////////////////////
-// Class name: OrthoWindow
-///////////////////////////////////////
 class OrthoWindow
 {
 private:
 	struct VertexType
 	{
-		XMFLOAT3 position;
-		XMFLOAT2 texture;
+		DirectX::XMFLOAT3 position;
+		DirectX::XMFLOAT2 texture;
 	};
 
 public:

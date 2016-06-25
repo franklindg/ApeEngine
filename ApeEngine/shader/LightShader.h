@@ -1,24 +1,19 @@
 #ifndef _LIGHT_SHADER_H
 #define _LIGHT_SHADER_H
 
-using namespace DirectX;
-
-///////////////////
-// Class name: LightShader //
-///////////////////
 class LightShader
 {
 private:
 	struct MatrixBufferType
 	{
-		XMMATRIX World;
-		XMMATRIX WorldView;
-		XMMATRIX WorldViewProjection;
+		DirectX::XMMATRIX World;
+		DirectX::XMMATRIX WorldView;
+		DirectX::XMMATRIX WorldViewProjection;
 	};
 
 	struct CameraBufferType
 	{
-		XMFLOAT3 cameraPosition;
+		DirectX::XMFLOAT3 cameraPosition;
 		float padding1;
 	};
 
@@ -26,7 +21,7 @@ private:
 	{
 		//XMFLOAT4 ambientColor;
 		//XMFLOAT4 diffuseColor;
-		XMFLOAT3 lightDirection;
+		DirectX::XMFLOAT3 lightDirection;
 		//float specularPower;
 		float padding;
 		//XMFLOAT4 specularColor;
@@ -36,17 +31,17 @@ public:
 	LightShader(ID3D11Device* device, HWND hwnd);
 	~LightShader();
 
-	bool Render(int indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
-		CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
-		ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, XMFLOAT3 cameraPosition, XMFLOAT3 lightDirection);
+	bool Render(int indexCount, DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix,
+		DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
+		ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, DirectX::XMFLOAT3 cameraPosition, DirectX::XMFLOAT3 lightDirection);
 
 private:
 	bool InitializeShader(HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename);
 	void OutputShaderErrorMessage(ID3DBlob* errorMessage, HWND hwnd, WCHAR* shaderFilename);
 
-	bool SetShaderParameters(CXMMATRIX worldMatrix, CXMMATRIX viewMatrix,
-		CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
-		ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, XMFLOAT3 cameraPos, XMFLOAT3 lightDirection);
+	bool SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix,
+		DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* normal, ID3D11ShaderResourceView* diffuseAlbedo,
+		ID3D11ShaderResourceView* specularAlbedo, ID3D11ShaderResourceView* position, DirectX::XMFLOAT3 cameraPos, DirectX::XMFLOAT3 lightDirection);
 	void RenderShader(int indexCount);
 
 private:

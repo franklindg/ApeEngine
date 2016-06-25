@@ -1,21 +1,10 @@
 #ifndef _INPUT_H
 #define _INPUT_H
+
 #define DIRECTINPUT_VERSION 0x0800
-
-//////////
-// LINK DEPENDENCIES //
-//////////
 #pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib")
-
-//////////
-// INCLUDES //
-//////////
 #include <dinput.h>
 
-///////////////////
-// Class name: Input //
-///////////////////
 class Input
 {
 public:

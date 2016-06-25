@@ -1,22 +1,18 @@
 #ifndef _Scene_H
 #define _Scene_H
 
-/////////////
-// CLASS INCLUDES //
-/////////////
-#include "D3DManager.h"
-#include "Input.h"
-#include "Camera.h"
-#include "Model.h"
-#include "Texture.h"
-#include "Light.h"
-#include "Position.h"
-#include "../utilities/Timer.h"
-#include "../buffers/DeferredBuffers.h"
-#include "../buffers/OrthoWindow.h"
-#include "../shader/DeferredShader.h"
-#include "../shader/LightShader.h"
-
+class Input;
+class D3DManager;
+class Camera;
+class Model;
+class Texture;
+class Light;
+class Position;
+class Timer;
+class DeferredBuffers;
+class OrthoWindow;
+class DeferredShader;
+class LightShader;
 
 class Scene
 {
@@ -42,7 +38,7 @@ private:
 	std::shared_ptr<Position>		 m_pPosition;
 	std::shared_ptr<Light>		     m_pLight;
 
-	XMFLOAT3 m_CameraPos;
+	DirectX::XMFLOAT3 m_CameraPos;
 
 	bool m_bDisplayUI, m_bWireFrame, m_bCellLines, m_bHeightLocked;
 	int m_iScreenWidth, m_iScreenHeight;

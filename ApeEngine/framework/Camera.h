@@ -1,14 +1,6 @@
 #ifndef _CAMERA_H
 #define _CAMERA_H
 
-// INCLUDES 
-#include <DirectXMath.h>
-using namespace DirectX;
-
-
-///////////////////
-// Class name: Camera //
-///////////////////
 class Camera
 {
 public:
@@ -18,21 +10,21 @@ public:
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
 
-	XMFLOAT3 GetPosition();
-	XMFLOAT3 GetRotation();
+	DirectX::XMFLOAT3 GetPosition();
+	DirectX::XMFLOAT3 GetRotation();
 	
 	void Render();
-	void GetViewMatrix(XMMATRIX&);
+	void GetViewMatrix(DirectX::XMMATRIX&);
 
 	void RenderBaseViewMatrix();
-	void GetBaseViewMatrix(XMMATRIX&);
+	void GetBaseViewMatrix(DirectX::XMMATRIX&);
 
 	void RenderReflection(float);
-	void GetReflectionViewMatrix(XMMATRIX&);
+	void GetReflectionViewMatrix(DirectX::XMMATRIX&);
 
 private:
 	float m_positionX, m_positionY, m_positionZ;
 	float m_rotationX, m_rotationY, m_rotationZ;
-	XMMATRIX m_viewMatrix, m_baseViewMatrix, m_reflectionViewMatrix;
+	DirectX::XMMATRIX m_viewMatrix, m_baseViewMatrix, m_reflectionViewMatrix;
 };
 #endif

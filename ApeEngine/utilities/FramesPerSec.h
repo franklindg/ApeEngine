@@ -1,25 +1,6 @@
-/////////////////////////////////////////////
-// Filename: FramesPerSec.h
-/////////////////////////////////////////////
 #ifndef _FRAMES_PER_SEC_H
 #define _FRAMES_PER_SEC_H
 
-//////////
-// LINKER //
-//////////
-#pragma comment(lib, "winmm.lib")
-
-
-//////////
-// INCLUDES //
-//////////
-#include <Windows.h>
-//#include <mmsystem.h>
-
-
-///////////////////
-// Class name: FramesPerSec //
-///////////////////
 class FramesPerSec
 {
 public:

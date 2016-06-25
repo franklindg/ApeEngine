@@ -1,15 +1,6 @@
 #ifndef _MODEL_H
 #define _MODEL_H
 
-// INCLUDES
-#include <fstream>
-
-using namespace DirectX;
-using namespace std;
-
-///////////////////
-// Class name: Model //
-///////////////////
 class Model
 {
 private:
@@ -30,11 +21,11 @@ private:
 
 	struct VertexType
 	{
-		XMFLOAT4 position;
-		XMFLOAT2 texCoord;
-		XMFLOAT3 normal;
-		XMFLOAT3 tangent;
-		XMFLOAT3 bitangent;
+		DirectX::XMFLOAT4 position;
+		DirectX::XMFLOAT2 texCoord;
+		DirectX::XMFLOAT3 normal;
+		DirectX::XMFLOAT3 tangent;
+		DirectX::XMFLOAT3 bitangent;
 	};
 
 public:

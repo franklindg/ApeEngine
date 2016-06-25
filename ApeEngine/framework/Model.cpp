@@ -45,8 +45,8 @@ bool Model::InitializeBuffers(const char* filename)
 
 	
 	UINT NumMeshes = pScene->mNumMeshes;
-	vector<VertexType> vertices;
-	vector<DWORD> indices;
+	std::vector<VertexType> vertices;
+	std::vector<DWORD> indices;
 
 	for (UINT i = 0; i < NumMeshes; i++)
 	{
@@ -56,16 +56,16 @@ bool Model::InitializeBuffers(const char* filename)
 		{
 			VertexType v;
 
-			v.position = XMFLOAT4(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z, 1.0f);
-			v.normal = XMFLOAT3(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+			v.position = DirectX::XMFLOAT4(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z, 1.0f);
+			v.normal = DirectX::XMFLOAT3(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
 			if (mesh->HasTangentsAndBitangents())
 			{
-				v.tangent = XMFLOAT3(mesh->mTangents[j].x, mesh->mTangents[j].y, mesh->mTangents[j].z);
-				v.bitangent = XMFLOAT3(mesh->mBitangents[j].x, mesh->mBitangents[j].y, mesh->mBitangents[j].z);
+				v.tangent = DirectX::XMFLOAT3(mesh->mTangents[j].x, mesh->mTangents[j].y, mesh->mTangents[j].z);
+				v.bitangent = DirectX::XMFLOAT3(mesh->mBitangents[j].x, mesh->mBitangents[j].y, mesh->mBitangents[j].z);
 			}
 			if (mesh->HasTextureCoords(0))
 			{
-				v.texCoord = XMFLOAT2(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y);
+				v.texCoord = DirectX::XMFLOAT2(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y);
 			}
 
 			vertices.push_back(v);

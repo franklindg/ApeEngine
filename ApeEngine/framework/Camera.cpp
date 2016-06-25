@@ -31,22 +31,22 @@ void Camera::SetRotation(float x, float y, float z)
 	return;
 }
 
-XMFLOAT3 Camera::GetPosition()
+DirectX::XMFLOAT3 Camera::GetPosition()
 {
-	return XMFLOAT3(m_positionX, m_positionY, m_positionZ);
+	return DirectX::XMFLOAT3(m_positionX, m_positionY, m_positionZ);
 }
 
-XMFLOAT3 Camera::GetRotation()
+DirectX::XMFLOAT3 Camera::GetRotation()
 {
-	return XMFLOAT3(m_rotationX, m_rotationY, m_rotationZ);
+	return DirectX::XMFLOAT3(m_rotationX, m_rotationY, m_rotationZ);
 }
 
 void Camera::Render()
 {
-	XMFLOAT3 up, position, lookAt;
-	XMVECTOR upVector, positionVector, lookAtVector;
+	DirectX::XMFLOAT3 up, position, lookAt;
+	DirectX::XMVECTOR upVector, positionVector, lookAtVector;
 	float yaw, pitch, roll;
-	XMMATRIX rotationMatrix;
+	DirectX::XMMATRIX rotationMatrix;
 
 
 	up.x = 0.0f;
@@ -74,17 +74,17 @@ void Camera::Render()
 	yaw = m_rotationY * 0.0174532925f;
 	roll = m_rotationZ * 0.0174532925f;
 
-	rotationMatrix = XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
+	rotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
 
 	lookAtVector = XMVector3TransformCoord(lookAtVector, rotationMatrix);
 	upVector = XMVector3TransformCoord(upVector, rotationMatrix);
-	lookAtVector = XMVectorAdd(positionVector, lookAtVector);
+	lookAtVector = DirectX::XMVectorAdd(positionVector, lookAtVector);
 
-	m_viewMatrix = XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
+	m_viewMatrix = DirectX::XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
 	return;
 }
 
-void Camera::GetViewMatrix(XMMATRIX& viewMatrix)
+void Camera::GetViewMatrix(DirectX::XMMATRIX& viewMatrix)
 {
 	viewMatrix = m_viewMatrix;
 	return;
@@ -92,10 +92,10 @@ void Camera::GetViewMatrix(XMMATRIX& viewMatrix)
 
 void Camera::RenderBaseViewMatrix()
 {
-	XMFLOAT3 up, position, lookAt;
-	XMVECTOR upVector, positionVector, lookAtVector;
+	DirectX::XMFLOAT3 up, position, lookAt;
+	DirectX::XMVECTOR upVector, positionVector, lookAtVector;
 	float yaw, pitch, roll;
-	XMMATRIX rotationMatrix;
+	DirectX::XMMATRIX rotationMatrix;
 
 	up.x = 0.0f;
 	up.y = 1.0f;
@@ -119,19 +119,19 @@ void Camera::RenderBaseViewMatrix()
 	yaw = m_rotationY * 0.0174532925f;
 	roll = m_rotationZ * 0.0174532925f;
 
-	rotationMatrix = XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
+	rotationMatrix = DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
 
 	lookAtVector = XMVector3TransformCoord(lookAtVector, rotationMatrix);
 	upVector = XMVector3TransformCoord(upVector, rotationMatrix);
 
-	lookAtVector = XMVectorAdd(positionVector, lookAtVector);
+	lookAtVector = DirectX::XMVectorAdd(positionVector, lookAtVector);
 
-	m_baseViewMatrix = XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
+	m_baseViewMatrix = DirectX::XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
 
 	return;
 }
 
-void Camera::GetBaseViewMatrix(XMMATRIX& viewMatrix)
+void Camera::GetBaseViewMatrix(DirectX::XMMATRIX& viewMatrix)
 {
 	viewMatrix = m_baseViewMatrix;
 	return;
@@ -139,8 +139,8 @@ void Camera::GetBaseViewMatrix(XMMATRIX& viewMatrix)
 
 void Camera::RenderReflection(float height)
 {
-	XMFLOAT3 up, position, lookAt;
-	XMVECTOR upVector, positionVector, lookAtVector;
+	DirectX::XMFLOAT3 up, position, lookAt;
+	DirectX::XMVECTOR upVector, positionVector, lookAtVector;
 	float radians;
 
 	up.x = 0.0f;
@@ -160,12 +160,12 @@ void Camera::RenderReflection(float height)
 	lookAt.z = cosf(radians) + m_positionZ;
 	lookAtVector = XMLoadFloat3(&lookAt);
 
-	m_reflectionViewMatrix = XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
+	m_reflectionViewMatrix = DirectX::XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
 
 	return;
 }
 
-void Camera::GetReflectionViewMatrix(XMMATRIX& viewMatrix)
+void Camera::GetReflectionViewMatrix(DirectX::XMMATRIX& viewMatrix)
 {
 	viewMatrix = m_reflectionViewMatrix;
 	return;

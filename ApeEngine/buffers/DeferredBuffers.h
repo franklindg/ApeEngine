@@ -1,16 +1,8 @@
 #ifndef _DEFERRED_BUFFERS_H
 #define _DEFERRED_BUFFERS_H
 
-//////////
-// DEFINES //
-//////////
 const int BUFFER_COUNT = 4;
 
-using namespace DirectX;
-
-///////////////////
-// Class name: DeferredBuffer //
-///////////////////
 class DeferredBuffers
 {
 public:

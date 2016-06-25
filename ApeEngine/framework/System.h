@@ -1,12 +1,8 @@
 #ifndef _SYSTEM_H
 #define _SYSTEM_H
 
-// INCLUDES 
-#include "Application.h"
+class Application;
 
-///////////////////
-// Class name: System //
-///////////////////
 class System
 {
 public:

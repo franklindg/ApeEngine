@@ -1,5 +1,6 @@
 #include <ApePCH.h>
 #include "System.h"
+#include "Application.h"
 
 System::System()
 	: m_pApplication(nullptr)

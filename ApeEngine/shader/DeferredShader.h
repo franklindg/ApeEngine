@@ -1,11 +1,6 @@
 #ifndef _DEFERRED_SHADER_H
 #define _DEFERRED_SHADER_H
 
-using namespace DirectX;
-
-///////////////////
-// Class name: DeferredShader //
-///////////////////
 class DeferredShader
 {
 private:
@@ -17,14 +12,14 @@ private:
 
 	struct MatrixBufferType
 	{
-		XMMATRIX World;
-		XMMATRIX WorldView;
-		XMMATRIX WorldViewProjection;
+		DirectX::XMMATRIX World;
+		DirectX::XMMATRIX WorldView;
+		DirectX::XMMATRIX WorldViewProjection;
 	};
 
 	struct MaterialBufferType
 	{
-		XMFLOAT3 specularAlbedo;
+		DirectX::XMFLOAT3 specularAlbedo;
 		float specularPower;
 	};
 
@@ -32,14 +27,15 @@ public:
 	DeferredShader(ID3D11Device* pDevice);
 	~DeferredShader();
 
-	bool Render(UINT, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix, ID3D11ShaderResourceView*,
+	bool Render(UINT, DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView*,
 		ID3D11ShaderResourceView*);
 
 private:
 	void OutputShaderErrorMessage(ID3DBlob*, HWND, WCHAR*);
 
 	bool CreateShader(DeferredShader::ShaderType shaderType, WCHAR* fileName, char* entryPoint, char* targetFeature);
-	bool SetShaderParameters(CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* diffuseMap, ID3D11ShaderResourceView* normalMap);
+	bool SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix,
+							 ID3D11ShaderResourceView* diffuseMap, ID3D11ShaderResourceView* normalMap);
 	void RenderShader(UINT);
 
 	bool GetShaderInformation();

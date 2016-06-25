@@ -1,16 +1,6 @@
 #ifndef _POSITION_H
 #define _POSITION_H
 
-
-//////////
-// INCLUDES //
-//////////
-#include <math.h>
-
-
-///////////////////
-// Class name: Position //
-///////////////////
 class Position
 {
 public:

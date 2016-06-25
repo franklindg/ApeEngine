@@ -1,5 +1,18 @@
 #include <ApePCH.h>
+
 #include "Scene.h"
+#include "D3DManager.h"
+#include "Input.h"
+#include "Camera.h"
+#include "Model.h"
+#include "Texture.h"
+#include "Light.h"
+#include "Position.h"
+#include "../utilities/Timer.h"
+#include "../buffers/DeferredBuffers.h"
+#include "../buffers/OrthoWindow.h"
+#include "../shader/DeferredShader.h"
+#include "../shader/LightShader.h"
 
 Scene::Scene(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear)
 	: m_pCamera(nullptr)
@@ -148,8 +161,8 @@ bool Scene::Render(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Text
 
 bool Scene::RenderDeferred(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	XMFLOAT3 cameraPosition;
+	DirectX::XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	DirectX::XMFLOAT3 cameraPosition;
 
 	// Gets matrices for model rendering.
 	pD3DManager->GetWorldMatrix(worldMatrix);
@@ -183,7 +196,7 @@ bool Scene::RenderDeferred(std::shared_ptr<D3DManager> pD3DManager, std::shared_
 
 bool Scene::RenderWindow(std::shared_ptr<D3DManager> pD3DManager, std::shared_ptr<Texture> pTexture)
 {
-	XMMATRIX WorldMatrix, BaseViewMatrix, OrthoMatrix;
+	DirectX::XMMATRIX WorldMatrix, BaseViewMatrix, OrthoMatrix;
 
 	pD3DManager->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 

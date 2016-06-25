@@ -100,7 +100,7 @@ DeferredShader::~DeferredShader()
 	m_pBlob.Reset();
 }
 
-bool DeferredShader::Render(UINT indexCount, CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix,
+bool DeferredShader::Render(UINT indexCount, DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix,
 							ID3D11ShaderResourceView* textureMap, ID3D11ShaderResourceView* normalMap)
 {
 	if (!SetShaderParameters(worldMatrix, viewMatrix, projectionMatrix, textureMap, normalMap))
@@ -191,19 +191,19 @@ bool DeferredShader::CreateShader(DeferredShader::ShaderType shaderType, WCHAR* 
 	return true;
 }
 
-bool DeferredShader::SetShaderParameters(CXMMATRIX worldMatrix, CXMMATRIX viewMatrix, CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* normalMap)
+bool DeferredShader::SetShaderParameters(DirectX::CXMMATRIX worldMatrix, DirectX::CXMMATRIX viewMatrix, DirectX::CXMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* normalMap)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	unsigned int bufferNumber;
 	MatrixBufferType* dataPtr;
 	MaterialBufferType* dataPtr2;
-	XMFLOAT3 specAlbedo(1.0f, 1.0f, 1.0f);
+	DirectX::XMFLOAT3 specAlbedo(1.0f, 1.0f, 1.0f);
 	float specPower(32.0f);
 
-	XMMATRIX WorldMatrix = XMMatrixTranspose(worldMatrix);
-	XMMATRIX WorldViewMatrix = XMMatrixTranspose(XMMatrixMultiply(worldMatrix, viewMatrix));
-	XMMATRIX WorldViewProjectionMatrix = XMMatrixTranspose(XMMatrixMultiply(XMMatrixMultiply(worldMatrix, viewMatrix), projectionMatrix));
+	DirectX::XMMATRIX WorldMatrix = XMMatrixTranspose(worldMatrix);
+	DirectX::XMMATRIX WorldViewMatrix = XMMatrixTranspose(XMMatrixMultiply(worldMatrix, viewMatrix));
+	DirectX::XMMATRIX WorldViewProjectionMatrix = XMMatrixTranspose(XMMatrixMultiply(XMMatrixMultiply(worldMatrix, viewMatrix), projectionMatrix));
 
 	// Lock the constant buffer so it can be written to.
 	result = m_pDeviceContext->Map(m_pMatrixBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);

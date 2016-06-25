@@ -98,6 +98,7 @@
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zm100 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>FreeImage.lib;libboost_filesystem-vc140-mt-gd-1_61.lib;libboost_serialization-vc140-mt-gd-1_61.lib;libboost_system-vc140-mt-gd-1_61.lib;libboost_wserialization-vc140-mt-gd-1_61.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -113,6 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zm100 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>FreeImage.lib;libboost_filesystem-vc140-mt-gd-1_61.lib;libboost_serialization-vc140-mt-gd-1_61.lib;libboost_system-vc140-mt-gd-1_61.lib;libboost_wserialization-vc140-mt-gd-1_61.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -127,6 +129,7 @@
       <SDLCheck>false</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zm100 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -143,6 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
+      <AdditionalOptions>/Zm100 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

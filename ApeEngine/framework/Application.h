@@ -1,23 +1,18 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
-// GLOBALS
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
-// CLASS INCLUDES
-#include "Input.h"
-#include "D3DManager.h"
-#include "Texture.h"
-#include "../utilities/Timer.h"
-#include "../utilities/FramesPerSec.h"
-#include "Scene.h"
+class Input;
+class D3DManager;
+class Texture;
+class Timer;
+class FramesPerSec;
+class Scene;
 
-///////////////////
-// Class name: Application //
-///////////////////
 class Application
 {
 public:
