@@ -3,7 +3,6 @@
 
 // INCLUDES
 #include <fstream>
-#include "ApePCH.h"
 
 using namespace DirectX;
 using namespace std;

@@ -1,9 +1,6 @@
 #ifndef _ORTHO_WINDOW_H_
 #define _ORTHO_WINDOW_H_
 
-// INCLUDES 
-#include "../framework/ApePCH.h"
-
 using namespace DirectX;
 
 

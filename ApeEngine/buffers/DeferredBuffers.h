@@ -6,9 +6,6 @@
 //////////
 const int BUFFER_COUNT = 4;
 
-// INCLUDES
-#include "../framework/ApePCH.h"
-
 using namespace DirectX;
 
 ///////////////////

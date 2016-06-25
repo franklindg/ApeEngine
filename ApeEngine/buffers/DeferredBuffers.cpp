@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "DeferredBuffers.h"
 
 DeferredBuffers::DeferredBuffers(ID3D11Device* device, int textureWidth, int textureHeight, float screenDepth, float screenNear)

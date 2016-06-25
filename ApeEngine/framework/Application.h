@@ -8,7 +8,6 @@ const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
 // CLASS INCLUDES
-#include "ApePCH.h"
 #include "Input.h"
 #include "D3DManager.h"
 #include "Texture.h"

@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "Application.h"
 
 Application::Application(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight)

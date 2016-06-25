@@ -1,9 +1,6 @@
 #ifndef _DEFERRED_SHADER_H
 #define _DEFERRED_SHADER_H
 
-// INCLUDES
-#include "../framework/ApePCH.h"
-
 using namespace DirectX;
 
 ///////////////////

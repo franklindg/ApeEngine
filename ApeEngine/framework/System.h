@@ -2,7 +2,6 @@
 #define _SYSTEM_H
 
 // INCLUDES 
-#include "ApePCH.h"
 #include "Application.h"
 
 ///////////////////

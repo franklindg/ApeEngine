@@ -70,22 +70,34 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
-    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\dependencies\FreeImage-3.17.0\Source;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\Intermediates\</IntDir>
+    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\FreeImage-3.17.0\Source;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
-    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\dependencies\FreeImage-3.17.0\Source;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\Intermediates\</IntDir>
+    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\FreeImage-3.17.0\Source;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\FreeImage-3.17.0\Source;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\Intermediates\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\boost_1_61_0;C:\Users\Daniel\Documents\GitHub\ApeEngine\dependencies\FreeImage-3.17.0\Source;C:\Users\Daniel\Documents\GitHub\ApeEngine\ApeEngine\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Daniel\Documents\GitHub\ApeEngine\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\Intermediates\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <AdditionalDependencies>FreeImage.lib;libboost_filesystem-vc140-mt-gd-1_61.lib;libboost_serialization-vc140-mt-gd-1_61.lib;libboost_system-vc140-mt-gd-1_61.lib;libboost_wserialization-vc140-mt-gd-1_61.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -99,7 +111,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>FreeImage.lib;libboost_filesystem-vc140-mt-gd-1_61.lib;libboost_serialization-vc140-mt-gd-1_61.lib;libboost_system-vc140-mt-gd-1_61.lib;libboost_wserialization-vc140-mt-gd-1_61.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -108,6 +125,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -122,14 +141,22 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ApePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>FreeImage.lib;libboost_filesystem-vc140-mt-gd-1_61.lib;libboost_serialization-vc140-mt-gd-1_61.lib;libboost_system-vc140-mt-gd-1_61.lib;libboost_wserialization-vc140-mt-gd-1_61.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="framework\ApePCH.cpp" />
+    <ClCompile Include="framework\ApePCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="framework\Application.cpp" />
     <ClCompile Include="shader\DeferredShader.cpp" />
     <ClCompile Include="buffers\DeferredBuffers.cpp" />
@@ -149,7 +176,7 @@
     <ClCompile Include="framework\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework\ApePCH.h" />
+    <ClInclude Include="inc\ApePCH.h" />
     <ClInclude Include="framework\Application.h" />
     <ClInclude Include="shader\DeferredShader.h" />
     <ClInclude Include="buffers\DeferredBuffers.h" />

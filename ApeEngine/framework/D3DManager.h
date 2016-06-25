@@ -1,8 +1,6 @@
 #ifndef _D3D_MANAGER_H
 #define _D3D_MANAGER_H
 
-// PCH
-#include "ApePCH.h"
 
 using namespace DirectX;
 

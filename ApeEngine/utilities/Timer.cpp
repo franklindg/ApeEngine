@@ -1,8 +1,5 @@
-/////////////////////////////////////////////
-// Filename: Timer.cpp
-/////////////////////////////////////////////
+#include <ApePCH.h>
 #include "Timer.h"
-#include "../framework/ApePCH.h"
 
 Timer::Timer()
 {

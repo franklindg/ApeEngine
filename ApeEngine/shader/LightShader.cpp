@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "LightShader.h"
 
 LightShader::LightShader(ID3D11Device* device, HWND hwnd)

@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "Scene.h"
 
 Scene::Scene(D3DManager* Direct3D, HWND hwnd, int screenWidth, int screenHeight, float screenDepth, float screenNear)

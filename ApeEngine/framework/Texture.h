@@ -1,12 +1,6 @@
 #ifndef _TEXTURE_H
 #define _TEXTURE_H
 
-// INCLUDES
-#include "ApePCH.h"
-
-///////////////////
-// Class name: Texture //
-///////////////////
 class Texture
 {
 public:

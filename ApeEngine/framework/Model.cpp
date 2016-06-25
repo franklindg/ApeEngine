@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "Model.h"
 
 Model::Model(ID3D11Device* device, const char* filename)

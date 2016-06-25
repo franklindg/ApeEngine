@@ -101,9 +101,6 @@
     <ClInclude Include="WIP\ClearFlags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="framework\ApePCH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="framework\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utilities\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ApePCH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

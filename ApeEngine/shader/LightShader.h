@@ -1,8 +1,6 @@
 #ifndef _LIGHT_SHADER_H
 #define _LIGHT_SHADER_H
 
-// INCLUDES 
-#include "../framework/ApePCH.h"
 using namespace DirectX;
 
 ///////////////////

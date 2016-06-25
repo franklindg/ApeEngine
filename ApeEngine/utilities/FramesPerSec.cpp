@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "FramesPerSec.h"
 
 FramesPerSec::FramesPerSec()

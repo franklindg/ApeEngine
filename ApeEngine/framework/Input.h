@@ -12,7 +12,6 @@
 // INCLUDES //
 //////////
 #include <dinput.h>
-#include "ApePCH.h"
 
 ///////////////////
 // Class name: Input //

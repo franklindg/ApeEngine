@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "OrthoWindow.h"
 
 OrthoWindow::OrthoWindow(ID3D11Device* device, int windowWidth, int windowHeight)

@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "DeferredShader.h"
 
 DXGI_FORMAT GetDXGIFormat(const D3D11_SIGNATURE_PARAMETER_DESC& paramDesc);

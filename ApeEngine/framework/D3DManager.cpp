@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "D3DManager.h"
 
 D3DManager::D3DManager(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen,

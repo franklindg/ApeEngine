@@ -1,3 +1,4 @@
+#include <ApePCH.h>
 #include "Input.h"
 
 Input::Input(HINSTANCE hInstance, HWND hwnd, int screenWidth, int screenHeight)
